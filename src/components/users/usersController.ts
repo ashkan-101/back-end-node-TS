@@ -2,8 +2,11 @@ import { Request, Response } from "express"
 import User from "./model/User"
 
 class UsersController {
+    // constructor(){
+    //     this.getUsers = this.getUsers.bind(this)
+    // }
 
-    public index(req: Request, res: Response){
+    public getUsers(req: Request, res: Response){
         res.send({allUsers: []})
     }
 
@@ -16,8 +19,6 @@ class UsersController {
         })
         res.send({newUser})
     }
-
-
 }
 
 export default UsersController

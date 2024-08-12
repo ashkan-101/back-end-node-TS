@@ -9,7 +9,6 @@ const userSchema = new Schema({
     total_orders: {type: Number, default: 0},
     wallet: {type: Number, default: 0},
     created_at: {type: Date, default: Date.now()}
-
 })
 
 export default model<IUser>('User', userSchema)

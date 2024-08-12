@@ -4,12 +4,8 @@ import UsersController from "./usersController";
 const usersControllerIntance = new UsersController()
 const usersRouter: Router = Router()
 
-usersRouter.get('/', usersControllerIntance.index)
+usersRouter.get('/', usersControllerIntance.getUsers)
 usersRouter.post('/', usersControllerIntance.createUser)
-
-
-
-
 
 export default usersRouter
 
