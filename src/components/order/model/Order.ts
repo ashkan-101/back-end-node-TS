@@ -9,6 +9,7 @@ const orderSchema: Schema = new Schema({
   coupon: {type: Object, default: null},
   final_price: {type: Number, required: true},
   order_lines: {type: [orderLineSchema]},
+  delivary_address: {type: Object, default: null},
   status: {type: OrderStatus, required: true, default: OrderStatus.INIT},
   created_at: {type: Date, default: Date.now()},
   updated_at: {type: Date, default: Date.now()}

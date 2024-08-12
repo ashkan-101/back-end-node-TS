@@ -1,4 +1,4 @@
-import { model, Model, Schema } from "mongoose";
+import { model, Schema } from "mongoose";
 import IProductOffer from "./IProductOffer";
 import productOfferItemSchema from "./ProductOfferItem";
 
