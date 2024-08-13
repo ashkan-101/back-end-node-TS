@@ -1,11 +1,12 @@
 import IProduct from "../../../components/product/model/IProduct";
 import IBasket from "../contracts/IBasket";
 import redisConnection from "../../../infrastructure/connections/redis";
+import IBasketConfigurable from "../contracts/IBasketConfigurable";
 
-export default class BasketRedisProvider implements IBasket {
+export default class BasketRedisProvider implements IBasket, IBasketConfigurable {
   private key: string = ''
-  public constructor(key: string){
-    this.key = key
+  public config(config: string): void{
+    this.key = config
   }
 
   public add(product: IProduct): void {
