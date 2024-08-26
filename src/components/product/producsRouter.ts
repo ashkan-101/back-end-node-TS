@@ -1,10 +1,11 @@
 import { Router } from "express";
 import ProductsController from "./productsController";
  
-const usersControllerIntance = new ProductsController()
+const productControllerIntance = new ProductsController()
 const ProductsRouter: Router = Router()
 
-ProductsRouter.get('/', usersControllerIntance.index)
+ProductsRouter.get('/', productControllerIntance.index)
+ProductsRouter.post('/', productControllerIntance.create)
 
 
 

@@ -16,7 +16,7 @@ class RouteService {
     bindRouters() {
         this.router.registerRouter('/api/v1/users', usersRouter_1.default);
         this.router.registerRouter('/api/v1/products', producsRouter_1.default);
-        this.router.registerRouter('/api/v1/category', CategoryRouter_1.default);
+        this.router.registerRouter('/api/v1/categories', CategoryRouter_1.default);
     }
     run() {
         this.router.getRouters().forEach((router, route) => {

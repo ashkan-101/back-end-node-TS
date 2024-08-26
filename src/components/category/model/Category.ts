@@ -6,5 +6,8 @@ const categorySchema: Schema = new Schema({
   slug: {type: String, required: true},
   groups: {type: [Object]}
 })
+categorySchema.set('toJSON', {
+  virtuals: true
+})
 
 export default model<ICategory>("Category", categorySchema)

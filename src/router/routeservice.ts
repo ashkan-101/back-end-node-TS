@@ -15,7 +15,7 @@ class RouteService{
     private bindRouters(){
         this.router.registerRouter('/api/v1/users', usersRouter)
         this.router.registerRouter('/api/v1/products', productsRouter)
-        this.router.registerRouter('/api/v1/category', categoryRouter)
+        this.router.registerRouter('/api/v1/categories', categoryRouter)
     }
     public run(){
         this.router.getRouters().forEach((router, route) => {

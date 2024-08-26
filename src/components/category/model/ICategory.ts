@@ -1,8 +1,8 @@
 import { Document } from "mongoose";
-import IAttribute from "./IAttribute";
+import IAttributeCategory from "./IAttrubuteCategory";
 
 export default interface ICategory extends Document {
   title: string,
   slug: string,
-  groups: [IAttribute]
+  groups: [IAttributeCategory]
 }
