@@ -9,5 +9,7 @@ export default interface IUser extends Document {
   wallet: number;
   addresses: [object]
   created_at: Date;
+  
+  constraints: any
 }
 

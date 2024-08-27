@@ -4,10 +4,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const path_1 = __importDefault(require("path"));
+const ProductMongoRepository_1 = __importDefault(require("./repositories/ProductMongoRepository"));
 class ProductController {
-    constructor() { }
-    index(req, res) {
-        res.send({ allProducts: [] });
+    constructor() {
+        this.productsRepository = new ProductMongoRepository_1.default;
+        this.index = this.index.bind(this);
+    }
+    async index(req, res) {
+        const allProducts = await this.productsRepository.findMany({});
+        res.send({ allProducts });
     }
     create(req, res) {
         if (req.files) {

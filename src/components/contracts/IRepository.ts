@@ -1,6 +1,6 @@
 
 export default interface IRepository<T> {
-  findOne(ID: string): Promise<T>,
+  findOne(ID: string): Promise<T | null>,
   findMany(params: any): Promise<T[]>,
   create(params: any): Promise<T>,
   updateOne(where: any, updateData: Partial<T>): Promise<boolean>,

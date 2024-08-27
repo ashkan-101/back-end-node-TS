@@ -1,7 +1,7 @@
 enum ProductStatus {
-    INIt,
+    INIT,
     INACTIVE,
-    PUBLISHED
+    PUBLISHED,
 }
 
 export default ProductStatus

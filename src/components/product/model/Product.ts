@@ -12,6 +12,10 @@ const productSchema: Schema = new Schema({
     attributes: {type: [Object], required: true},
     created_at: {type: Date, default: Date.now()},
     updated_at: {type: Date, default: Date.now()},
-    status: {type: ProductStatus, default: ProductStatus.INIt}
+    status: {
+        type: Number,
+        enum: ProductStatus,
+        default: ProductStatus.INIT 
+    }
 })
 export default model<IProduct>('Product', productSchema)
