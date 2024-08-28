@@ -2,6 +2,7 @@
   "devDependencies": {
     "@types/express-fileupload": "^1.5.1",
     "@types/mongoose": "^5.11.97",
+    "@types/uuid": "^10.0.0",
     "concurrently": "^8.2.2",
     "nodemon": "^3.1.4",
     "typescript": "^5.5.4"
@@ -31,6 +32,7 @@
     "mongoose": "^8.5.2",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.1",
-    "tedis": "^0.1.12"
+    "tedis": "^0.1.12",
+    "uuid": "^10.0.0"
   }
 }
