@@ -5,13 +5,16 @@ import ProductStatus from './productStatus'
 const productSchema: Schema = new Schema({
     title: {type: String, required: true},
     price: {type: Number, required: true},
-    sale_price: {type: Number, default: 0},
+    disCountedPrice: {type: Number, default: 0},
     thumbnail: {type: String},
     gallery: {type: [String]},
-    product_category: {type: Schema.Types.ObjectId, ref: "ProductCategory"},
+    category: {type: Schema.Types.ObjectId, ref: "ProductCategory"},
     attributes: {type: [Object], required: true},
+    variations: {type: [Object]},
+    priceVariations: {type: [Object]},
     created_at: {type: Date, default: Date.now()},
     updated_at: {type: Date, default: Date.now()},
+    stock: {type: Number, required: true},
     status: {
         type: Number,
         enum: ProductStatus,
