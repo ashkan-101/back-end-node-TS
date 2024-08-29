@@ -5,17 +5,14 @@ import orderLineSchema from './OrderLine'
 
 const orderSchema: Schema = new Schema({
   user: {type: Schema.Types.ObjectId, ref: "User"},
-  total_price: {type: Number, required: true},
+  totalPrice: {type: Number, required: true},
+  finalPrice: {type: Number, required: true},
+  orderLines: {type: [orderLineSchema]},
+  delivaryAddress: {type: Object, required: true},
   coupon: {type: Object, default: null},
-  final_price: {type: Number, required: true},
-  order_lines: {type: [orderLineSchema]},
-  delivary_address: {type: Object, default: null},
+  createdAt: {type: Date, default: Date.now()},
+  updatedAt: {type: Date, default: Date.now()},
   status: {type: OrderStatus, required: true, default: OrderStatus.INIT},
-  created_at: {type: Date, default: Date.now()},
-  updated_at: {type: Date, default: Date.now()}
 })
 
-
-
-
-export default model<IOrder>('Product', orderSchema)
+export default model<IOrder>('Order', orderSchema)

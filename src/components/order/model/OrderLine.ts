@@ -1,7 +1,9 @@
 import { Schema } from "mongoose";
 const orderLineSchema: Schema = new Schema({
-  price: {type: Number, required: true},
   product: {type: Schema.Types.ObjectId, ref: 'Product', required: true},
+  price: {type: Number, required: true},
+  discountedPrice: {type: Number, required: true},
+  count: {type: Number, required: true},
   created_at: {type: Date, default: Date.now()}
 })
 

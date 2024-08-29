@@ -16,8 +16,8 @@ export default class ProductTransformer implements ITransformer<IProduct> {
       thumbnail: item.thumbnailUrl,
       price: item.price,
       discountedPrice: item.disCountedPrice,
-      created_at: this.dateService.toPersian(item.created_at.toUTCString()),
-      updated_at: this.dateService.toPersian(item.updated_at.toUTCString()),
+      createdAt: this.dateService.toPersian(item.created_at.toUTCString()),
+      updatedAt: this.dateService.toPersian(item.updated_at.toUTCString()),
       gallery: item.galleryUrl,
       status: item.status
     }
