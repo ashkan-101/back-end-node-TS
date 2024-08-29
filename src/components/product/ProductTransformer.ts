@@ -13,16 +13,16 @@ export default class ProductTransformer implements ITransformer<IProduct> {
     return {
       id: item._id,
       title: item.title,
-      thumbnail: item.thumbnail,
+      thumbnail: item.thumbnailUrl,
       price: item.price,
       discountedPrice: item.disCountedPrice,
       created_at: this.dateService.toPersian(item.created_at.toUTCString()),
       updated_at: this.dateService.toPersian(item.updated_at.toUTCString()),
-      gallery: item.gallery,
+      gallery: item.galleryUrl,
       status: item.status
     }
   }
-
+  
   public collection(items: IProduct[]){
     return items.map((item: IProduct) => this.transform(item))
   };

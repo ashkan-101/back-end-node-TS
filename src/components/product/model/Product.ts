@@ -1,6 +1,8 @@
 import { Schema, model } from 'mongoose'
 import IProduct from './IProduct'
 import ProductStatus from './productStatus'
+import { config } from 'dotenv'
+config()
 
 const productSchema: Schema = new Schema({
     title: {type: String, required: true},
@@ -21,4 +23,15 @@ const productSchema: Schema = new Schema({
         default: ProductStatus.INIT 
     }
 })
+
+productSchema.virtual('thumbnailUrl').get(function (this: IProduct) {
+    return `${process.env.APP_URL}:${process.env.APP_PORt}/contents/${this.thumbnail}`
+})
+
+productSchema.virtual('galleryUrl').get(function (this: IProduct){
+    return this.gallery?.map((item: string) => {
+        return `${process.env.APP_URL}:${process.env.APP_PORt}/contents/${item}`
+    })
+})
+
 export default model<IProduct>('Product', productSchema)

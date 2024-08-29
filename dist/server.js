@@ -7,6 +7,6 @@ const dotenv_1 = require("dotenv");
 (0, dotenv_1.config)();
 require("./infrastructure/connections/mongoose");
 const app_1 = __importDefault(require("./app"));
-const port = 9090;
+const port = process.env.APP_PORT;
 const application = new app_1.default(port);
 application.start();
