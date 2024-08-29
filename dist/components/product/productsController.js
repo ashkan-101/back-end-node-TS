@@ -5,16 +5,18 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const ProductMongoRepository_1 = __importDefault(require("./repositories/ProductMongoRepository"));
 const UploadService_1 = __importDefault(require("../../services/UploadService"));
+const ProductTransformer_1 = __importDefault(require("./ProductTransformer"));
 class ProductController {
     constructor() {
         this.productsRepository = new ProductMongoRepository_1.default();
         this.uploadService = new UploadService_1.default();
+        this.productsTransformer = new ProductTransformer_1.default();
         this.index = this.index.bind(this);
         this.create = this.create.bind(this);
     }
     async index(req, res) {
         const allProducts = await this.productsRepository.findMany({});
-        res.send({ allProducts });
+        res.send(this.productsTransformer.collection(allProducts));
     }
     async create(req, res) {
         const newProductParams = {
