@@ -3,7 +3,7 @@ import { hashFromUUID } from './HashService'
 import path from "path";
 
 const ROOT_PATH: string = process.cwd()
-const CONTENT_PATH = '/public/content/'
+const CONTENT_PATH = '/public/contents/'
 
 export default class UploadService {
   constructor(){}
@@ -16,10 +16,10 @@ export default class UploadService {
 
   public async uploadMany(files: UploadedFile[]): Promise<string[]>{
     const filesNewName: string[] = []
-    files.forEach(async (file: UploadedFile) => {
-      const fileNewName = await this.upload(file)
+    for (let index = 0; index < files.length; index++) {
+      const fileNewName = await this.upload(files[index]) 
       filesNewName.push(fileNewName)
-    });
+    }
     return filesNewName
   }
 

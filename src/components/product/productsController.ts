@@ -28,27 +28,30 @@ class ProductController {
             title: req.body.title,
             price: req.body.price,
             disCountedPrice: req.body.disCountedPrice,
-            // thumbnail: req.body.thumbnail,
-            // gallery: req.body.gallery
             category: req.body.category,
             attributes: req.body.attributes,
             variations: req.body.product_variations,
             priceVariations: req.body.price_Variations,
             stock: req.body.stock
         }
+
+        const newProduct = await this.productsRepository.create(newProductParams)
+        
         if(req.files){
+
             const thumbnailFile: UploadedFile = req.files.thumbnail as UploadedFile
             const galleryFiles: UploadedFile[] = req.files.gallery as UploadedFile[]
-            
+
             const thumbnailName: string = await this.uploadService.upload(thumbnailFile)
             const galleryName: string[] = await this.uploadService.uploadMany(galleryFiles)
+
+            await this.productsRepository.updateOne({_id: newProduct._id}, {
+                thumbnail: thumbnailName,
+                gallery: galleryName
+            })
         }
-        const newProduct = await this.productsRepository.create(newProductParams)
-        res.send({newProduct})
-        
+        res.send({newProduct})    
     }
-
-
 }
 
 export default ProductController

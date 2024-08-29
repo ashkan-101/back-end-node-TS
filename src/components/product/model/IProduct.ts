@@ -10,11 +10,11 @@ export default interface IProduct extends Document {
   price: number;
   disCountedPrice: number;
   thumbnail?: string;
-  gallery?: [string];
+  gallery?: string[];
   category: string;
-  attributes: [IAttributeGroup];
-  variations: [IProductVariation];
-  priceVariations: [IPriceVariation];
+  attributes: IAttributeGroup[];
+  variations: IProductVariation[];
+  priceVariations: IPriceVariation[];
   created_at: Date;
   updated_at: Date;
   stock: number;

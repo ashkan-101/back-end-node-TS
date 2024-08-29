@@ -4,9 +4,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const ProductMongoRepository_1 = __importDefault(require("./repositories/ProductMongoRepository"));
+const UploadService_1 = __importDefault(require("../../services/UploadService"));
 class ProductController {
     constructor() {
-        this.productsRepository = new ProductMongoRepository_1.default;
+        this.productsRepository = new ProductMongoRepository_1.default();
+        this.uploadService = new UploadService_1.default();
         this.index = this.index.bind(this);
         this.create = this.create.bind(this);
     }
@@ -19,8 +21,6 @@ class ProductController {
             title: req.body.title,
             price: req.body.price,
             disCountedPrice: req.body.disCountedPrice,
-            // thumbnail: req.body.thumbnail,
-            // gallery: req.body.gallery
             category: req.body.category,
             attributes: req.body.attributes,
             variations: req.body.product_variations,
@@ -28,12 +28,17 @@ class ProductController {
             stock: req.body.stock
         };
         const newProduct = await this.productsRepository.create(newProductParams);
+        if (req.files) {
+            const thumbnailFile = req.files.thumbnail;
+            const galleryFiles = req.files.gallery;
+            const thumbnailName = await this.uploadService.upload(thumbnailFile);
+            const galleryName = await this.uploadService.uploadMany(galleryFiles);
+            await this.productsRepository.updateOne({ _id: newProduct._id }, {
+                thumbnail: thumbnailName,
+                gallery: galleryName
+            });
+        }
         res.send({ newProduct });
-        // if(req.files){
-        //     const thumbnail: UploadedFile = req.files.thumbnail as UploadedFile
-        //     thumbnail.mv(path.join(process.cwd(), `/uploads/${Math.random().toString(36).slice(3,8) + '-' + thumbnail.name}`))
-        //     res.send({thumbnail})
-        // }
     }
 }
 exports.default = ProductController;
