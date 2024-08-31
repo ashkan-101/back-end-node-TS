@@ -2,6 +2,7 @@ import express from "express";
 import { Application } from "express";
 import RouteService from "./router/routeservice";
 import Bootstrap from "./bootstrap";
+import ErrorHandler from "./middlewares/ErrorHandler";
 
 class App {
     public app: Application
@@ -19,6 +20,7 @@ class App {
     public start(): void{
         this.bootstrap.initial()
         this.router.run()
+        ErrorHandler(this.app)
         this.app.listen(this.port, () => {
             console.log('app is running ...');
         })
