@@ -6,7 +6,7 @@ import UploadService from "../../services/UploadService"
 import ProductTransformer from "./ProductTransformer"
 
 class ProductController {
-    private productsRepository: IProductRepository
+    private readonly productsRepository: IProductRepository
     private uploadService: UploadService
     private productsTransformer: ProductTransformer
 
