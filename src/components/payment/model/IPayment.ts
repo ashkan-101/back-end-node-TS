@@ -5,7 +5,7 @@ export default interface IPayment extends Document {
   user: string
   order: string
   amount: number
-  method: string[]
+  method: string
   reserve: string
   refrence: string
   createdAt: Date

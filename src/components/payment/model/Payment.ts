@@ -6,7 +6,7 @@ const paymentSchema: Schema = new Schema({
   user: {type: Schema.Types.ObjectId, ref: 'User', required: true},
   order: {type: Schema.Types.ObjectId, ref: 'Order', required: true},
   amount: {type: Number, required: true},
-  methos: {type: [String], required: true},
+  methos: {type: String, required: true},
   reserve: {type: String, required: true},
   refrence: {type: String, required: true},
   createdAt: {type: Date, default: Date.now()},
