@@ -3,6 +3,7 @@ import Routerengine from './router'
 import usersRouter from '../components/users/usersRouter'
 import productsRouter from '../components/product/producsRouter'
 import categoryRouter from '../components/category/CategoryRouter'
+import ordersRouter from '../components/order/OrdersRouter'
 
 class RouteService{
     private app: Application
@@ -16,6 +17,7 @@ class RouteService{
         this.router.registerRouter('/api/v1/users', usersRouter)
         this.router.registerRouter('/api/v1/products', productsRouter)
         this.router.registerRouter('/api/v1/categories', categoryRouter)
+        this.router.registerRouter('/api/v1/orders', ordersRouter)
     }
     public run(){
         this.router.getRouters().forEach((router, route) => {
