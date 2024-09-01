@@ -33,12 +33,16 @@ class ProductController {
         if (req.files) {
             const thumbnailFile = req.files.thumbnail;
             const galleryFiles = req.files.gallery;
-            const thumbnailName = await this.uploadService.upload(thumbnailFile);
-            const galleryName = await this.uploadService.uploadMany(galleryFiles);
-            await this.productsRepository.updateOne({ _id: newProduct._id }, {
-                thumbnail: thumbnailName,
-                gallery: galleryName
-            });
+            console.log(thumbnailFile);
+            console.log(galleryFiles);
+            const files = req.files;
+            // console.log(files);
+            // const thumbnailName: string = await this.uploadService.upload(thumbnailFile)
+            // const galleryName: string[] = await this.uploadService.uploadMany(galleryFiles)
+            // await this.productsRepository.updateOne({_id: newProduct._id}, {
+            //     thumbnail: thumbnailName,
+            //     gallery: galleryName
+            // })
         }
         res.send({ newProduct });
     }

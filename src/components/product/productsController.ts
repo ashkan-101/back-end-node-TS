@@ -42,6 +42,9 @@ class ProductController {
             const thumbnailFile: UploadedFile = req.files.thumbnail as UploadedFile
             const galleryFiles: UploadedFile[] = req.files.gallery as UploadedFile[]
 
+            // const files = req.files as any as UploadedFile[]
+            // // console.log(files);
+
             const thumbnailName: string = await this.uploadService.upload(thumbnailFile)
             const galleryName: string[] = await this.uploadService.uploadMany(galleryFiles)
 

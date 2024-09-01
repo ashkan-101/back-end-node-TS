@@ -10,3 +10,5 @@ const shipmentSchema: Schema = new Schema({
   note: {type: String, default: null},
   status: {type: Number, enum: ShipmentStatus, default: ShipmentStatus.PENDING}
 })
+
+export default model<IShipment>('Shipment', shipmentSchema)
