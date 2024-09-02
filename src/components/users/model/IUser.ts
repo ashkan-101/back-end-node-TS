@@ -2,14 +2,14 @@ import { Document } from "mongoose";
 import IAddress from "./IAddress";
 
 export default interface IUser extends Document {
-  first_name: string;
-  last_name: string;
+  firstName: string;
+  lastName: string;
   email: string;
   mobile: string;
-  total_orders: number;
+  totalOrders: number;
   wallet: number;
   addresses: [object]
-  created_at: Date;
+  createdAt: Date;
   
   constraints: any
 }
