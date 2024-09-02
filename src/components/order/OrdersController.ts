@@ -18,9 +18,9 @@ class OrdersController {
       throw new NotFoundException('this order is notFound!')
 
     } catch (error: any) {
-      // if(!error.status){
-      //   next(new ServerException('server is unavailable!'))
-      // }
+      if(!error.status){
+        next(new ServerException('server is unavailable!'))
+      }
       next(error)
     }
   }

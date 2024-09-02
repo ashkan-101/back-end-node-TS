@@ -3,7 +3,7 @@ import CouponStatus from "./CouponStatus";
 
 export default interface ICoupon extends Document{
   code: string,
-  amount: number,
+  percent: number,
   limit: number,
   used: number,
   expires_at: Date,
