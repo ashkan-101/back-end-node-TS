@@ -1,6 +1,6 @@
 import { Application, Request, Response, NextFunction } from "express";
 
-export default function ErrorHandler(app: Application){
+export default function ExceptionHandler(app: Application){
   app.use((error: Error, req: Request, res: Response, next: NextFunction) => {
     res.status(403).send({
       statusCode: 403,
