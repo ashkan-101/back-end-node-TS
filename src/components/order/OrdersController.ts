@@ -18,7 +18,7 @@ class OrdersController {
 
   public async index(req: Request, res: Response, next: NextFunction): Promise<void>{
     try {
-      const orders = await this.ordersRepository.findMany({})
+      const orders = await this.ordersRepository.findMany({}, ['user'])
       res.send(this.orderTransformer.collection(orders))
     } catch (error: any) {
       next(error)
@@ -28,7 +28,7 @@ class OrdersController {
   public async create(red: Request, res: Response, next: NextFunction): Promise<void> {
     try {
       const newOrderParams = {
-        user: '66ba4a6e4bb4b33f2cc2a817',
+        user: '66d83c045b7dbae85dda0728',
         totalPrice: 1000000,
         finalPrice: 950000,
         orderLines: [{
