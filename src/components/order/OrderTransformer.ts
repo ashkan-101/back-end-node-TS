@@ -25,7 +25,7 @@ export default class OrderTransformer implements ITransformer<IOrder> {
     } 
   };
   collection(items: IOrder[]){
-    return items.map((item: IOrder) => {this.transform(item)})
+    return items.map((item: IOrder) => {return this.transform(item)})
   };
 
   private getUser(user: any){

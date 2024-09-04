@@ -1,5 +1,3 @@
-
-
 export default interface IAddress {
   title: string,
   state: string,

@@ -5,6 +5,7 @@ const ordersRouter: Router = Router()
 const ordersControllerInstance = new OrdersController()
 
 ordersRouter.get('/', ordersControllerInstance.index)
+ordersRouter.post('/', ordersControllerInstance.create)
 
 
 

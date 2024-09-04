@@ -8,7 +8,7 @@ const orderSchema: Schema = new Schema({
   totalPrice: {type: Number, required: true},
   finalPrice: {type: Number, required: true},
   orderLines: {type: [orderLineSchema]},
-  delivaryAddress: {type: Object, required: true},
+  deliveryAddress: {type: Object, required: true},
   coupon: {type: Object, default: null},
   createdAt: {type: Date, default: Date.now()},
   updatedAt: {type: Date, default: Date.now()},
