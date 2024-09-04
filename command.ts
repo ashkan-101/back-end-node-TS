@@ -1,6 +1,7 @@
 import { config } from 'dotenv'
 import connectToMongoDB from  './src/infrastructure/connections/mongoose'
 import {create as userFactory} from './src/factories/mongo/UserFactory'
+import{createProduct as productFactory} from './src/factories/mongo/ProductFactory'
 import { Command } from 'commander'
 import clear from 'clear'
 
@@ -21,10 +22,15 @@ program
   .action((model, options) => {
     switch (model) {
       case 'user':
-          userFactory(options.count)
-          .then((users) => {})
-          .catch((error) => console.log(error.message))
-        break 
+        userFactory(options.count)
+        .then((users) => {})
+        .catch((error) => console.log(error.message))
+      break 
+      
+      case 'product':
+        productFactory(options.count)
+        .then((product) => {})
+        .catch((error) => {console.log(error);})
     }
   })
 
