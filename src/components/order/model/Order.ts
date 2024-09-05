@@ -9,7 +9,7 @@ const orderSchema: Schema = new Schema({
   finalPrice: {type: Number, required: true},
   orderLines: {type: [orderLineSchema]},
   deliveryAddress: {type: Object, required: true},
-  coupon: {type: Object, default: null},
+  coupon: {type: Schema.Types.ObjectId, ref: 'Coupon', default: null},
   createdAt: {type: Date, default: Date.now()},
   updatedAt: {type: Date, default: Date.now()},
   status: {type: Number, required: true, enum: OrderStatus, default: OrderStatus.INIT},

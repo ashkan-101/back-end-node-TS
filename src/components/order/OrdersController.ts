@@ -18,7 +18,7 @@ class OrdersController {
 
   public async index(req: Request, res: Response, next: NextFunction): Promise<void>{
     try {
-      const orders = await this.ordersRepository.findMany({}, ['user'])
+      const orders = await this.ordersRepository.findMany({}, ['user', 'coupon'])
       res.send(this.orderTransformer.collection(orders))
     } catch (error: any) {
       next(error)
@@ -38,6 +38,7 @@ class OrdersController {
           count: 1,
           createdAt: Date.now()
         }],
+        coupon: '66d98f8c5a535c517b2d186e',
         deliveryAddress: {
           title: 'home',
           state: 'kermanshah',
