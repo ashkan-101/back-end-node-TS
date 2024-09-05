@@ -8,6 +8,7 @@ const usersRouter_1 = __importDefault(require("../components/users/usersRouter")
 const producsRouter_1 = __importDefault(require("../components/product/producsRouter"));
 const CategoryRouter_1 = __importDefault(require("../components/category/CategoryRouter"));
 const OrdersRouter_1 = __importDefault(require("../components/order/OrdersRouter"));
+const CouponsRouter_1 = __importDefault(require("../components/coupon/CouponsRouter"));
 class RouteService {
     constructor(app) {
         this.app = app;
@@ -19,6 +20,7 @@ class RouteService {
         this.router.registerRouter('/api/v1/products', producsRouter_1.default);
         this.router.registerRouter('/api/v1/categories', CategoryRouter_1.default);
         this.router.registerRouter('/api/v1/orders', OrdersRouter_1.default);
+        this.router.registerRouter('/api/v1/coupon', CouponsRouter_1.default);
     }
     run() {
         this.router.getRouters().forEach((router, route) => {

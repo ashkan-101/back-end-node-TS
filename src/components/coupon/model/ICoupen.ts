@@ -6,7 +6,7 @@ export default interface ICoupon extends Document{
   percent: number,
   limit: number,
   used: number,
-  expires_at: Date,
+  expiresAt: Date,
   constraints: object,
-  status: CouponStatus.ACTIVE
+  status: CouponStatus
 } 
