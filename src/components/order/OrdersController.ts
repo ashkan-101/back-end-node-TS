@@ -18,8 +18,20 @@ class OrdersController {
 
   public async index(req: Request, res: Response, next: NextFunction): Promise<void>{
     try {
-      const orders = await this.ordersRepository.findMany({}, ['user', 'coupon'])
-      res.send(this.orderTransformer.collection(orders))
+      const page = req.query.page || 1
+      const itemsPerPage = 10
+      const offset = (page as number - 1) * itemsPerPage
+      const orders = await this.ordersRepository.findMany({}, ['user', 'coupon'], {itemsPerPage, offset})
+      const totalOrders = await this.ordersRepository.findMany({})
+      res.send({
+        date: this.orderTransformer.collection(orders),
+        _metadata: {
+          page,
+          per_page: itemsPerPage,
+          total_pages: Math.ceil(totalOrders.length / itemsPerPage),
+          total_items: totalOrders.length
+        }
+      })
     } catch (error: any) {
       next(error)
     }
