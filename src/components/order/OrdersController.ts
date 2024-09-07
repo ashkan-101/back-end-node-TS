@@ -17,32 +17,41 @@ class OrdersController {
   }
 
   public async index(req: Request, res: Response, next: NextFunction): Promise<void>{
-    try {
+
       const page = req.query.page || 1
       const itemsPerPage = 10
       const offset = (page as number - 1) * itemsPerPage
-      const orders = await this.ordersRepository.findMany({}, ['user', 'coupon'], {itemsPerPage, offset})
-      const totalOrders = await this.ordersRepository.findMany({})
+     
+      const orders = await this.ordersRepository.findByUserDetails({
+        firstName: req.query.keyword as string,
+        lastName: req.query.keyword as string,
+        email: req.query.keyword as string
+      }, ['user', 'coupon'], {itemsPerPage, offset})
+      
+      const totalOrders = await this.ordersRepository.findByUserDetails({
+        firstName: req.query.keyword as string,
+        lastName: req.query.keyword as string,
+        email: req.query.keyword as string
+      })
+     
       res.send({
         date: this.orderTransformer.collection(orders),
         _metadata: {
           page,
-          per_page: itemsPerPage,
-          total_pages: Math.ceil(totalOrders.length / itemsPerPage),
-          total_items: totalOrders.length
+          perPage: itemsPerPage,
+          totalPages: Math.ceil(totalOrders.length / itemsPerPage),
+          totalItems: totalOrders.length
         }
       })
-    } catch (error: any) {
-      next(error)
-    }
+
   }
 
   public async create(red: Request, res: Response, next: NextFunction): Promise<void> {
     try {
       const newOrderParams = {
-        user: '66d83c045b7dbae85dda0728',
-        totalPrice: 1000000,
-        finalPrice: 950000,
+        user: '66ba4a6e4bb4b33f2cc2a817',
+        totalPrice: 101000000,
+        finalPrice: 950000101,
         orderLines: [{
           product: '66d035bd9f8a07e2a6ae6529',
           price: 1000000,
