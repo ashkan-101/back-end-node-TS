@@ -10,14 +10,16 @@ import OrderTransformer from "./OrderTransformer";
 class OrdersController {
   private readonly ordersRepository: IOrderRepository
   private readonly orderTransformer: OrderTransformer
+
   constructor(){
     this.ordersRepository = new OrderMongoRepository()
     this.orderTransformer = new OrderTransformer()
     this.index = this.index.bind(this)
+    this.find = this.find.bind(this)
   }
 
   public async index(req: Request, res: Response, next: NextFunction): Promise<void>{
-
+    try {
       const page = req.query.page || 1
       const itemsPerPage = 10
       const offset = (page as number - 1) * itemsPerPage
@@ -43,7 +45,9 @@ class OrdersController {
           totalItems: totalOrders.length
         }
       })
-
+    } catch (error: any) {
+      next(error.message)
+    }
   }
 
   public async create(red: Request, res: Response, next: NextFunction): Promise<void> {
@@ -73,6 +77,22 @@ class OrdersController {
       const newOrder = await Order.create(newOrderParams)
       res.send(newOrder)
     } catch (error) {
+      next(error)
+    }
+  }
+
+  public async find(req: Request, res: Response, next: NextFunction): Promise<void>{
+    try {
+      const orderId = req.params.orderId
+      if(orderId.length !== 24){
+        throw new NotFoundException('order not found') 
+      }
+      const order = await this.ordersRepository.findOne(orderId, ['user', 'coupon'])
+      if(!order){
+        throw new NotFoundException('order not found') 
+      }
+      res.send(this.orderTransformer.transform(order))
+    } catch (error: any) {
       next(error)
     }
   }

@@ -15,9 +15,14 @@ export default class OrderMongoRepository implements IOrderRepository {
     this.userRepository = new UserMongoRepository()
   }
   
-  public async findOne(ID: string): Promise<IOrder | null> {
-    const order = await OrderModel.findById(ID)
-    return order
+  public async findOne(ID: string, relations?: string[]): Promise<IOrder | null> {
+    const order = OrderModel.findById(ID)
+    if(relations && relations?.length > 0){
+      relations.forEach((relation: string) => {
+        order.populate(relation)
+      })
+    }
+    return await order.exec()
   }
 
   public async findMany(params: any, relations?: string[], pagination?: IPagination): Promise<IOrder[]> {
@@ -62,15 +67,9 @@ export default class OrderMongoRepository implements IOrderRepository {
     return updateOrder.modifiedCount > 0
   }
 
-  public async updateMany(where: any, updateData: any): Promise<any> {
-    
-  }
-
-  public async deleteOne(where: any): Promise<any> {
-    
-  }
-
-  public async deleteMany(where: any): Promise<any> {
-    
-  }
+  public async updateMany(where: any, updateData: any): Promise<any> {}
+  public async deleteOne(where: any): Promise<any> {}
+  public async deleteMany(where: any): Promise<any> {}
+  
+  // public async count(params: any): Promise<number> {}
 }
