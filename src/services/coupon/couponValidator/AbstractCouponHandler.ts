@@ -15,7 +15,6 @@ abstract class AbstractCouponHandler implements ICouponHandler {
       return this.nextHandler.process(user, coupon)
     }
     return null
-
   }
 }
 

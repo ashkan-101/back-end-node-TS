@@ -20,14 +20,12 @@ class ProductController {
     }
     async create(req, res) {
         const newProductParams = {
-            title: req.body.title,
-            price: req.body.price,
-            disCountedPrice: req.body.disCountedPrice,
-            category: req.body.category,
-            attributes: req.body.attributes,
-            variations: req.body.product_variations,
-            priceVariations: req.body.price_Variations,
-            stock: req.body.stock
+            user: '66ba4a6e4bb4b33f2cc2a817',
+            order: '66d990d7df9b58fdfc7a4647',
+            amount: 23,
+            method: 'zarinPal',
+            reserve: '',
+            refrence: '',
         };
         const newProduct = await this.productsRepository.create(newProductParams);
         if (req.files) {

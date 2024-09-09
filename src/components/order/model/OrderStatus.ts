@@ -1,14 +1,10 @@
 
 enum OrderStatus {
-  INIT,
-  PAYID,
-  CONFIRMED,
-  INVENTORY,
-  READY,
-  SENT,
+  PENDING,
+  PAID_IN_PROGRESS,
   DELIVERED,
+  REFUNDED,
   CANCELED,
-  REFUNDED, 
 }
 
 export default OrderStatus
