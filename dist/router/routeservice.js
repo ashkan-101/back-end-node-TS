@@ -21,7 +21,7 @@ class RouteService {
         this.router.registerRouter('/api/v1/products', producsRouter_1.default);
         this.router.registerRouter('/api/v1/categories', CategoryRouter_1.default);
         this.router.registerRouter('/api/v1/orders', OrdersRouter_1.default);
-        this.router.registerRouter('/api/v1/coupon', CouponsRouter_1.default);
+        this.router.registerRouter('/api/v1/coupons', CouponsRouter_1.default);
         this.router.registerRouter('/api/v1/payments', PaymentsRouter_1.default);
     }
     run() {

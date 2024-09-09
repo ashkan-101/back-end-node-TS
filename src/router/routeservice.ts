@@ -20,7 +20,7 @@ class RouteService{
         this.router.registerRouter('/api/v1/products', productsRouter)
         this.router.registerRouter('/api/v1/categories', categoryRouter)
         this.router.registerRouter('/api/v1/orders', ordersRouter)
-        this.router.registerRouter('/api/v1/coupon', couponRouter)
+        this.router.registerRouter('/api/v1/coupons', couponRouter)
         this.router.registerRouter('/api/v1/payments', paymentsRouter)
     }
     public run(){

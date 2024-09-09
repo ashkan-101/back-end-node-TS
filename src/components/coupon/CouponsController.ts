@@ -8,19 +8,39 @@ class CouponController {
 
   constructor(){
     this.couponRepository = new CouponMongoRepository()
+    
+    this.index = this.index.bind(this)
+    this.store = this.store.bind(this)
   }
 
-  public async create(req: Request, res: Response, next: NextFunction){
+  public async index(req: Request, res: Response, next: NextFunction){
+    try {
+      const coupons = await this.couponRepository.findMany({})
+      res.send(coupons)
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  public async store(req: Request, res: Response, next: NextFunction){
     try {
       const newCouponParams = {
-        code: '1llpo0',
-        amount: 20,
-        expiresAt: Date.now() + 3600000
+        code: req.body.code,
+        amount: req.body.amount,
+        limit: req.body.limit,
+        expiresAt: req.body.expiresAt,
+        constraints: req.body.constraints,
       }
-      const newCoupon = await Coupon.create(newCouponParams)
-      res.send(newCoupon)
+      const newCoupon = await this.couponRepository.create(newCouponParams)
+      if(newCoupon){
+        res.status(201).send({
+          success: true,
+          status: 200,
+          message: 'success create coupon'
+        })
+      }
     } catch (error: any) {
-      next(error.message)
+      next(error)
     }
   }
 }
