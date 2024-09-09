@@ -1,6 +1,7 @@
 import IRepository from "../../contracts/IRepository";
-import IProduct from "../model/ISetting";
+import ISetting from "../model/ISetting";
 
-export default interface IProductRepository extends IRepository<IProduct> {
+
+export default interface ISettingRepository extends IRepository<ISetting> {
 
 }

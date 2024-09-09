@@ -14,6 +14,7 @@ class ProductController {
         this.productsRepository = new ProductMongoRepository()
         this.uploadService = new UploadService()
         this.productsTransformer = new ProductTransformer()
+        
         this.index = this.index.bind(this) 
         this.create = this.create.bind(this) 
     }
