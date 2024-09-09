@@ -5,7 +5,7 @@ import AbstractCouponHandler from "../AbstractCouponHandler";
 class ExpireHandler extends AbstractCouponHandler{
   public process(user: IUser, coupon: ICoupon): ICoupon | null {
     const now = new Date()
-    if(coupon.expires_at < now){
+    if(coupon.expiresAt < now){
       throw new Error ('تاریخ انقضای کد به پایان رسیده است') 
     }
     

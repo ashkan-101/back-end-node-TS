@@ -3,7 +3,7 @@ import IOrder from "./model/IOrder";
 import OrderStatus from "./model/OrderStatus";
 import IOrderRepository from "./repositories/IOrderRepository";
 import OrderMongoRepository from "./repositories/OrderMongoRepository";
-import StatusVerifier from "./services/statusVerifier/statusVerifier";
+import StatusVerifier from "./services/statusVerifier/StatusVerifier";
 
 export default class OrderService {
   private readonly statusVerifier: StatusVerifier
