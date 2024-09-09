@@ -12,7 +12,7 @@ const orderSchema: Schema = new Schema({
   coupon: {type: Schema.Types.ObjectId, ref: 'Coupon', default: null},
   createdAt: {type: Date, default: Date.now()},
   updatedAt: {type: Date, default: Date.now()},
-  status: {type: Number, required: true, enum: OrderStatus, default: OrderStatus.INIT},
+  status: {type: Number, required: true, enum: OrderStatus, default: OrderStatus.PENDING},
 })
 
 export default model<IOrder>('Order', orderSchema)

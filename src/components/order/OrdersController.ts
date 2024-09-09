@@ -5,17 +5,22 @@ import ServerException from "../exceptions/ServerException";
 import NotFoundException from "../exceptions/NotFoundException";
 import Order from "./model/Order";
 import OrderTransformer from "./OrderTransformer";
+import OrderService from "./OrderService";
 
 
 class OrdersController {
   private readonly ordersRepository: IOrderRepository
   private readonly orderTransformer: OrderTransformer
+  private readonly orderService: OrderService
 
   constructor(){
     this.ordersRepository = new OrderMongoRepository()
     this.orderTransformer = new OrderTransformer()
+    this.orderService = new OrderService()
+
     this.index = this.index.bind(this)
     this.find = this.find.bind(this)
+    this.updateStatus = this.updateStatus.bind(this)
   }
 
   public async index(req: Request, res: Response, next: NextFunction): Promise<void>{
@@ -83,7 +88,7 @@ class OrdersController {
 
   public async find(req: Request, res: Response, next: NextFunction): Promise<void>{
     try {
-      const orderId = req.params.orderId
+      const orderId = req.params.orderID
       if(orderId.length !== 24){
         throw new NotFoundException('order not found') 
       }
@@ -95,6 +100,16 @@ class OrdersController {
     } catch (error: any) {
       next(error)
     }
+  }
+
+  public async updateStatus(req: Request, res: Response, next: NextFunction): Promise<void>{
+    this.orderService.updateStatus(req.params.orderID, req.body.orderStatus)
+    .then((result) => {
+      if(result){
+        res.send({success: true, message: 'successfully update status'})
+      }
+    })
+    .catch((error) => next(error))
   }
 }
 

@@ -6,7 +6,8 @@ const ordersControllerInstance = new OrdersController()
 
 ordersRouter.get('/', ordersControllerInstance.index)
 ordersRouter.post('/', ordersControllerInstance.create)
-ordersRouter.get('/:orderId', ordersControllerInstance.find)
+ordersRouter.get('/:orderID', ordersControllerInstance.find)
+ordersRouter.patch('/:orderID', ordersControllerInstance.updateStatus)
 
 
 
