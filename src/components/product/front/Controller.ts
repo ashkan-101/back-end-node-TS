@@ -67,7 +67,7 @@ class ProductController {
         throw new NotFoundException('product not found')
       }
       
-      const commentsProduct = await commentsRepository.findByProduct(productId)
+      const commentsProduct = await commentsRepository.findByProduct(productId, ['user', 'product'])
 
       if(!commentsProduct){
         throw new NotFoundException('product not found')

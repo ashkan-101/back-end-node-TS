@@ -1,7 +1,9 @@
 import { Router } from "express";
-import CommentsController from './CommentsController'
+import Controller from './CommentsController'
 
 const commentsRouter: Router = Router()
-const commentControllerInstance = new CommentsController()
+const controller = new Controller()
+
+commentsRouter.post('/', controller.create)
 
 export default commentsRouter

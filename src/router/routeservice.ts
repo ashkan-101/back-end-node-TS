@@ -10,6 +10,7 @@ import ordersRouter from '../components/order/OrdersRouter'
 import couponRouter from '../components/coupon/CouponsRouter'
 import paymentsRouter from '../components/payment/PaymentsRouter'
 import settingRouter from '../components/settings/SettingsRouter'
+import commentsRouter from '../components/comments/CommentsRouter'
 
 class RouteService{
     private app: Application
@@ -31,6 +32,7 @@ class RouteService{
         this.router.registerRouter('/api/v1/coupons', couponRouter)
         this.router.registerRouter('/api/v1/payments', paymentsRouter)
         this.router.registerRouter('/api/v1/settings', settingRouter)
+        this.router.registerRouter('/api/v1/comments', commentsRouter)
     }
     public run(){
         this.router.getRouters().forEach((router, route) => {
