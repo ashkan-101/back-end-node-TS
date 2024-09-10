@@ -4,10 +4,14 @@ import ProductMongoRepository from "../repositories/ProductMongoRepository";
 import ProductTransformer from "./Transformer";
 import NotFoundException from "../../exceptions/NotFoundException";
 import { isValidObjectId } from "mongoose";
+import ICommentRepository from "../../comments/repositories/ICommentRepository";
+import CommentMongoRepository from "../../comments/repositories/CommentMongoRepository";
+import CommentTransformer from "../../comments/CommentTransformer";
+
 
 class ProductController {
   private readonly productsRepository: IProductRepository;
-  private productsTransformer: ProductTransformer;
+  private readonly productsTransformer: ProductTransformer;
 
   constructor() {
     this.productsRepository = new ProductMongoRepository();
@@ -15,6 +19,7 @@ class ProductController {
 
     this.list = this.list.bind(this);
     this.productDetails = this.productDetails.bind(this)
+    this.comments = this.comments.bind(this)
   }
 
   public async list(req: Request, res: Response, next: NextFunction) {
@@ -46,6 +51,30 @@ class ProductController {
 
       const productTransform = this.productsTransformer.transform(product)
       res.status(200).send(productTransform)
+
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  public async comments(req: Request, res: Response, next: NextFunction) {
+    try {
+      const commentTransformer = new CommentTransformer()
+      const commentsRepository: ICommentRepository = new CommentMongoRepository()
+
+      const productId = req.params.id
+      if(!isValidObjectId(productId)){
+        throw new NotFoundException('product not found')
+      }
+      
+      const commentsProduct = await commentsRepository.findByProduct(productId)
+
+      if(!commentsProduct){
+        throw new NotFoundException('product not found')
+      }
+
+      const transformComment = commentTransformer.collection(commentsProduct)
+      res.status(200).send(transformComment)
 
     } catch (error) {
       next(error);

@@ -35,4 +35,15 @@ export default class CommentMongoRepository implements ICommentRepository {
   public async deleteMany(where: any): Promise<any> {
     
   }
+
+  public async findByProduct(ProductID: string, relations?: string[]): Promise<IComment[]> {
+    const commentQuery = CommentModel.find({product: ProductID})
+    if(relations && relations.length > 0){
+      relations.forEach((relation) => {
+        commentQuery.populate(relation)
+      })
+    }
+    return await commentQuery.exec()
+  }
+
 }

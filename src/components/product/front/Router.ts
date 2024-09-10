@@ -6,6 +6,7 @@ const ProductsRouter: Router = Router()
 
 ProductsRouter.get('/', controller.list)
 ProductsRouter.get('/:id', controller.productDetails)
+ProductsRouter.get('/:id/comments', controller.comments)
 
 
 
