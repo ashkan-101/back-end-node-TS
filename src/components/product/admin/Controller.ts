@@ -21,7 +21,11 @@ class ProductController {
 
   public async list(req: Request, res: Response, next: NextFunction) {
     try {
-      const allProducts = await this.productsRepository.findMany({});
+      const page = req.query.page || 1
+      const itemsPerPage = 10
+      const offset = (page as number - 1) * itemsPerPage
+
+      const allProducts = await this.productsRepository.findMany({}, [], {itemsPerPage, offset});
       res.send(this.productsTransformer.collection(allProducts));
     } catch (error) {
       next(error);

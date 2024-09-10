@@ -3,15 +3,21 @@ import ProductModel from '../model/Product'
 import ProductStatus from "../model/productStatus";
 import IProduct from "../model/IProduct";
 import { FilterQuery } from "mongoose";
+import IPagination from "../../contracts/IPagination";
 
 export default class ProductMongoRepository implements IProductRepository {
-  public async findOne(ID: string): Promise<IProduct | null> {
+  public async findOne(ID: string, relations?: string[]): Promise<IProduct | null> {
     const product = await ProductModel.findById(ID)
     return product
   }
 
-  public async findMany(params: any): Promise<IProduct[]> {
-    return ProductModel.find(params)
+  public async findMany(params: any, relations?: string[], pagination?: IPagination): Promise<IProduct[]> {
+    const productQuery = ProductModel.find(params)
+
+    if(pagination){
+      productQuery.limit(pagination.itemsPerPage).skip(pagination.offset)
+    }
+    return await productQuery.exec()
   } 
 
   public async findByStatus(status: ProductStatus): Promise<IProduct[]> {
