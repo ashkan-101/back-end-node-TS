@@ -1,7 +1,10 @@
 import { Application, Request, Response, Router } from 'express'
 import Routerengine from './router'
 import usersRouter from '../components/users/usersRouter'
-import productsRouter from '../components/product/producsRouter'
+
+import productsAdminRouter from '../components/product/admin/Router'
+import productsFrontRouter from '../components/product/front/Router'
+
 import categoryRouter from '../components/category/CategoryRouter'
 import ordersRouter from '../components/order/OrdersRouter'
 import couponRouter from '../components/coupon/CouponsRouter'
@@ -17,8 +20,12 @@ class RouteService{
         this.bindRouters()
     }
     private bindRouters(){
+        //admin
+        this.router.registerRouter('/api/v1/admin/products', productsAdminRouter)
+
+        //front
         this.router.registerRouter('/api/v1/users', usersRouter)
-        this.router.registerRouter('/api/v1/products', productsRouter)
+        this.router.registerRouter('/api/v1/products', productsFrontRouter)
         this.router.registerRouter('/api/v1/categories', categoryRouter)
         this.router.registerRouter('/api/v1/orders', ordersRouter)
         this.router.registerRouter('/api/v1/coupons', couponRouter)

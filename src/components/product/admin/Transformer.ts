@@ -1,6 +1,6 @@
-import ITransformer from "../contracts/ITransformer";
-import IProduct from "./model/IProduct";
-import DateService from '../../services/DateService'
+import ITransformer from "../../contracts/ITransformer";
+import IProduct from "../model/IProduct";
+import DateService from '../../../services/DateService'
 
 export default class ProductTransformer implements ITransformer<IProduct> {
   private readonly dateService: DateService
@@ -19,6 +19,7 @@ export default class ProductTransformer implements ITransformer<IProduct> {
       createdAt: this.dateService.toPersian(item.created_at.toUTCString()),
       updatedAt: this.dateService.toPersian(item.updated_at.toUTCString()),
       gallery: item.galleryUrl,
+      stock: item.stock,
       status: item.status
     }
   }
