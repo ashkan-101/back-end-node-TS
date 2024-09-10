@@ -28,7 +28,7 @@ class ProductController {
       const itemsPerPage = 10
       const offset = (page as number - 1) * itemsPerPage
 
-      const allProducts = await this.productsRepository.findMany({},[],{itemsPerPage, offset});
+      const allProducts = await this.productsRepository.findMany({},['category'],{itemsPerPage, offset});
       res.send(this.productsTransformer.collection(allProducts));
 
     } catch (error) {
@@ -43,7 +43,7 @@ class ProductController {
         throw new NotFoundException('product not found')
       }
       
-      const product = await this.productsRepository.findOne(productId)
+      const product = await this.productsRepository.findOne(productId, ['category'])
 
       if(!product){
         throw new NotFoundException('product not found')

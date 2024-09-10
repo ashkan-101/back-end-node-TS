@@ -13,6 +13,7 @@ export default class ProductTransformer implements ITransformer<IProduct> {
     return {
       id: item._id,
       title: item.title,
+      category: item.category,
       thumbnail: item.thumbnailUrl,
       price: item.price,
       attributes: item.attributes,

@@ -7,13 +7,24 @@ import IPagination from "../../contracts/IPagination";
 
 export default class ProductMongoRepository implements IProductRepository {
   public async findOne(ID: string, relations?: string[]): Promise<IProduct | null> {
-    const product = await ProductModel.findById(ID)
-    return product
+    const productQuery = ProductModel.findById(ID)
+
+    if(relations && relations.length > 0){
+      relations.forEach((relation) => {
+        productQuery.populate(relation)
+      })
+    }
+    return await productQuery.exec()
   }
 
   public async findMany(params: any, relations?: string[], pagination?: IPagination): Promise<IProduct[]> {
     const productQuery = ProductModel.find(params)
 
+    if(relations && relations.length > 0){
+      relations.forEach((relation) => {
+        productQuery.populate(relation)
+      })
+    }
     if(pagination){
       productQuery.limit(pagination.itemsPerPage).skip(pagination.offset)
     }

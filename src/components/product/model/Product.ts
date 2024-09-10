@@ -10,7 +10,7 @@ const productSchema: Schema = new Schema({
     disCountedPrice: {type: Number, default: 0},
     thumbnail: {type: String},
     gallery: {type: [String]},
-    category: {type: Schema.Types.ObjectId, ref: "ProductCategory"},
+    category: {type: Schema.Types.ObjectId, ref: "Category"},
     attributes: {type: [Object], required: true},
     variations: {type: [Object]},
     priceVariations: {type: [Object]},
