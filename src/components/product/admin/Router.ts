@@ -1,10 +1,10 @@
 import { Router } from "express";
-import ProductsController from "./Controller";
+import Controller from "./Controller";
  
-const productControllerIntance = new ProductsController()
+const controller = new Controller()
 const ProductsRouter: Router = Router()
 
-ProductsRouter.get('/', productControllerIntance.index)
+ProductsRouter.get('/', controller.list)
 
 /**
  * @swagger
@@ -94,7 +94,7 @@ ProductsRouter.get('/', productControllerIntance.index)
  *       500:
  *         description: Internal server error
  */
-ProductsRouter.post('/', productControllerIntance.create)
+ProductsRouter.post('/', controller.create)
 
 
 
