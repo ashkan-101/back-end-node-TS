@@ -1,6 +1,7 @@
 import ITransformer from "../contracts/ITransformer";
 import IComment from "./model/IComment";
 import DateService from "../../services/DateService";
+import { buildAvatar } from "../../services/AvatarService"; 
 
 export default class CommentTransformer implements ITransformer<IComment>{
 
@@ -31,7 +32,8 @@ export default class CommentTransformer implements ITransformer<IComment>{
   private getUser(user: any){
     return {
       firstName: user.firstName,
-      lastName: user.lastName
+      lastName: user.lastName,
+      avatar: buildAvatar(user.email)
     }
   }
 
