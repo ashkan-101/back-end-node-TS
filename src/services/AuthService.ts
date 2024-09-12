@@ -1,6 +1,6 @@
 import IUserRepository from "../components/users/repositories/IUserRepository"
 import UserMongoRepository from "../components/users/repositories/UserMongoRepository"
-import { comparePassword } from './HashService'
+import { comparePassword, hashPassword } from './HashService'
 
 class AuthService {
   private readonly usersRepository: IUserRepository
@@ -15,6 +15,19 @@ class AuthService {
       return false
     }
     return comparePassword(password, user.password)
+  }
+
+  public async register (firstName: string, lastName: string, email: string, password: string){
+    const newUser = await this.usersRepository.create({
+      firstName,
+      lastName,
+      email,
+      password: hashPassword(password)
+    })
+    if(!newUser){
+      return false
+    }
+    return true
   }
 }
 

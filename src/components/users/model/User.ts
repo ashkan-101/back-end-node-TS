@@ -7,10 +7,10 @@ const userSchema = new Schema({
     lastName: {type: String, required: true},
     email: {type: String, required: true, unique: true},
     password: {type: String, required: true},
-    mobile: {type: String, required: true, unique: true},
+    mobile: {type: String, unique: true},
     totalOrders: {type: Number, default: 0},
     wallet: {type: Number, default: 0},
-    addresses: {type: [addressSchema]},
+    addresses: {type: [addressSchema], default: []},
     createdAt: {type: Date, default: Date.now()}
 })
 

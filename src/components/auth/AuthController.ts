@@ -1,6 +1,9 @@
 import { Request, Response, NextFunction } from "express"
 import AuthService from "../../services/AuthService"
 import NotFoundException from "../exceptions/NotFoundException"
+import { hashPassword } from "../../services/HashService"
+import ServerException from "../exceptions/ServerException"
+
 
 class AuthController {
   private readonly authService: AuthService
@@ -9,6 +12,7 @@ class AuthController {
     this.authService = new AuthService()
 
     this.authenticate = this.authenticate.bind(this)
+    this.register = this.register.bind(this)
   }
 
   public async authenticate(req: Request, res: Response, next: NextFunction){
@@ -26,6 +30,25 @@ class AuthController {
         token: ''
       })
 
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  public async register(req: Request, res: Response, next: NextFunction){
+    try {
+      const {firstName, lastName, email, password} = req.body
+      
+      const registerResult = await this.authService.register(firstName, lastName, email, password)
+
+      if(!registerResult){
+        throw new ServerException('invalig register, please try again later')
+      }
+
+      res.status(201).send({
+        success: true,
+        registerResult
+      })
     } catch (error) {
       next(error)
     }

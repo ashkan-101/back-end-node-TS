@@ -10,10 +10,10 @@ const userSchema = new mongoose_1.Schema({
     lastName: { type: String, required: true },
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
-    mobile: { type: String, required: true, unique: true },
+    mobile: { type: String, unique: true },
     totalOrders: { type: Number, default: 0 },
     wallet: { type: Number, default: 0 },
-    addresses: { type: [Address_1.default] },
+    addresses: { type: [Address_1.default], default: [] },
     createdAt: { type: Date, default: Date.now() }
 });
 exports.default = (0, mongoose_1.model)('User', userSchema);

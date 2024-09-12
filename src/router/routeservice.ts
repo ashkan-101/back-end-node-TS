@@ -1,5 +1,7 @@
 import { Application, Request, Response, Router } from 'express'
 import Routerengine from './router'
+import authRouter from '../components/auth/AuthRouter'
+
 import usersRouter from '../components/users/usersRouter'
 
 import productsAdminRouter from '../components/product/admin/Router'
@@ -28,6 +30,7 @@ class RouteService{
         this.router.registerRouter('/api/v1/admin/coupons', couponAdminRouter)
 
         //front
+        this.router.registerRouter('/api/v1/auth', authRouter)
         this.router.registerRouter('/api/v1/users', usersRouter)
         this.router.registerRouter('/api/v1/products', productsFrontRouter)
         this.router.registerRouter('/api/v1/coupons', couponFrontRouter)

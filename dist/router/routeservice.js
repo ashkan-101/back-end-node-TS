@@ -4,6 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const router_1 = __importDefault(require("./router"));
+const AuthRouter_1 = __importDefault(require("../components/auth/AuthRouter"));
 const usersRouter_1 = __importDefault(require("../components/users/usersRouter"));
 const Router_1 = __importDefault(require("../components/product/admin/Router"));
 const Router_2 = __importDefault(require("../components/product/front/Router"));
@@ -25,6 +26,7 @@ class RouteService {
         this.router.registerRouter('/api/v1/admin/products', Router_1.default);
         this.router.registerRouter('/api/v1/admin/coupons', Router_3.default);
         //front
+        this.router.registerRouter('/api/v1/auth', AuthRouter_1.default);
         this.router.registerRouter('/api/v1/users', usersRouter_1.default);
         this.router.registerRouter('/api/v1/products', Router_2.default);
         this.router.registerRouter('/api/v1/coupons', Router_4.default);
