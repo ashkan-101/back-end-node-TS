@@ -35,15 +35,12 @@ export default class UserMongoRepository implements IUserRepository {
     return updateUser.modifiedCount > 0
   }
 
-  public async updateMany(where: any, updateData: any): Promise<any> {
-    
-  }
+  public async updateMany(where: any, updateData: any): Promise<any> {}
+  public async deleteOne(where: any): Promise<any> {}
+  public async deleteMany(where: any): Promise<any> {}
 
-  public async deleteOne(where: any): Promise<any> {
-    
-  }
-
-  public async deleteMany(where: any): Promise<any> {
-    
+  public async findByEmail(email: string): Promise<IUser | null> {
+    const user = await UserModel.findOne({email: email})
+    return user
   }
 }
