@@ -3,11 +3,11 @@ import IUser from "../../../../components/users/model/IUser";
 import AbstractCouponHandler from "../AbstractCouponHandler";
 
 class LimitHandler extends AbstractCouponHandler{
-  public process(user: IUser, coupon: ICoupon): ICoupon | null {
+  public process(coupon: ICoupon, user?: IUser): ICoupon | null {
     if(coupon.used >= coupon.limit){
       throw new Error('این کد تخفیف معتبر نیست')
     }
-    return super.process(user, coupon)
+    return super.process(coupon, user)
   }
 }
 

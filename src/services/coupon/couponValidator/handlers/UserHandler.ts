@@ -3,12 +3,17 @@ import IUser from "../../../../components/users/model/IUser";
 import AbstractCouponHandler from "../AbstractCouponHandler";
 
 class UserHandler extends AbstractCouponHandler{
-  public process(user: IUser, coupon: ICoupon): ICoupon | null {
-    const { userConstraint } = user.constraints 
-    if(user.id !== userConstraint){
-      throw new Error('این کد تخفیف برای کاربری شما صادر نشده است')
+  public process(coupon: ICoupon, user?: IUser): ICoupon | null {
+    if(user){
+
+      const { userConstraint } = user!.constraints 
+      if(user && user.id !== userConstraint){
+        throw new Error('این کد تخفیف برای کاربری شما صادر نشده است')
+      }
+
     }
-    return super.process(user, coupon)
+
+    return super.process(coupon, user)
   }
 }
 

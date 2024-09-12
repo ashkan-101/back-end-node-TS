@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
-import Coupon from "./model/Coupon";
-import ICouponRepository from "./repositories/ICouponRepository";
-import CouponMongoRepository from "./repositories/CouponMongoRepository";
+import Coupon from "../model/Coupon";
+import ICouponRepository from "../repositories/ICouponRepository";
+import CouponMongoRepository from "../repositories/CouponMongoRepository";
 
 class CouponController {
   private readonly couponRepository: ICouponRepository

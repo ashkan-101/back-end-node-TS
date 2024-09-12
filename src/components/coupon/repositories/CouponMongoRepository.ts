@@ -34,15 +34,12 @@ export default class CouponMongoRepository implements ICouponRepository {
     return updateCoupon.modifiedCount > 0
   }
 
-  public async updateMany(where: any, updateData: any): Promise<any> {
-    
-  }
+  public async updateMany(where: any, updateData: any): Promise<any> {}
+  public async deleteOne(where: any): Promise<any> {}
+  public async deleteMany(where: any): Promise<any> {}
 
-  public async deleteOne(where: any): Promise<any> {
-    
-  }
-
-  public async deleteMany(where: any): Promise<any> {
-    
+  public async findByCode(code: string): Promise<ICoupon | null> {
+    const couponQuery = CouponModel.findOne({code: code})
+    return couponQuery
   }
 }

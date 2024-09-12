@@ -3,7 +3,7 @@ import IUser from "../../../components/users/model/IUser";
 
 interface CouponHandler {
   setNext(handler: CouponHandler): CouponHandler | null,
-  process(user: IUser ,coupon: ICoupon): ICoupon | null
+  process(coupon: ICoupon, user?: IUser): ICoupon | null
 }
 
 export default CouponHandler

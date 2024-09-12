@@ -10,9 +10,9 @@ abstract class AbstractCouponHandler implements ICouponHandler {
     return handler
   }
 
-  public process(user: IUser, coupon: ICoupon): ICoupon | null{
+  public process(coupon: ICoupon, user?: IUser): ICoupon | null{
     if (this.nextHandler) {
-      return this.nextHandler.process(user, coupon)
+      return this.nextHandler.process(coupon, user)
     }
     return null
   }

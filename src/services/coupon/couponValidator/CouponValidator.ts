@@ -6,13 +6,13 @@ import UserHandler from "./handlers/UserHandler";
 
 class CouponValidator{
 
-  public handler(user: IUser, coupon: ICoupon){
+  public handler(coupon: ICoupon, user?: IUser){
     const userHandler = new UserHandler()
     const limitHandler = new LimitHandler()
     const expireHandler = new ExpireHandler()
 
     userHandler.setNext(limitHandler).setNext(expireHandler)
-    return userHandler.process(user, coupon)
+    return userHandler.process(coupon, user)
   }
 }
 

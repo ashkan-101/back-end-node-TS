@@ -4,7 +4,7 @@ import ICoupon from "./ICoupen";
 
 const couponSchema = new Schema({
   code: {type: String, required: true},
-  amount: {type: Number, required: true},
+  percent: {type: Number, required: true},
   limit: {type: Number, default: 0},
   used: {type: Number, default: 0},
   expiresAt: {type: Date, default: null},
