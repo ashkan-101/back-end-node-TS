@@ -1,10 +1,12 @@
 import { Request, Response, NextFunction } from "express"
 import { sign, verify } from '../../services/TokenService'
+import IUser from "../users/model/IUser"
 import User from "../users/model/User"
 import AuthService from "../../services/AuthService"
 import ServerException from "../exceptions/ServerException"
 import NotFoundException from "../exceptions/NotFoundException"
 import ValidationException from "../exceptions/ValidationException"
+import UserTransformer from "../users/UserTransformer"
 
 
 class AuthController {
@@ -19,6 +21,7 @@ class AuthController {
   }
 
   public async authenticate(req: Request, res: Response, next: NextFunction){
+    const userTransformer = new UserTransformer()
     try {
       const {email, password} = req.body
       const user = await this.authService.authenticate(email, password)
@@ -35,6 +38,7 @@ class AuthController {
       res.status(200).send({
         success: true,
         message: 'success login',
+        user: userTransformer.transform(user as IUser),
         token: sign({userId: id})
       })
     } catch (error) {
