@@ -1,3 +1,4 @@
+import IUser from "../components/users/model/IUser"
 import IUserRepository from "../components/users/repositories/IUserRepository"
 import UserMongoRepository from "../components/users/repositories/UserMongoRepository"
 import { comparePassword, hashPassword } from './HashService'
@@ -9,12 +10,15 @@ class AuthService {
     this.usersRepository = new UserMongoRepository()
   }
 
-  public async authenticate(email: string, password: string): Promise<boolean>{
+  public async authenticate(email: string, password: string): Promise<IUser | boolean>{
     const user = await this.usersRepository.findByEmail(email)
     if(!user){
       return false
     }
-    return comparePassword(password, user.password)
+    if(comparePassword(password, user.password)){
+      return user
+    }
+    return false
   }
 
   public async register (firstName: string, lastName: string, email: string, password: string){
