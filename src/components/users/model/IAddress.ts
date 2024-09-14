@@ -1,5 +1,4 @@
 export default interface IAddress {
-  title: string,
   state: string,
   city: string,
   address: string,

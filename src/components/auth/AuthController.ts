@@ -6,7 +6,7 @@ import AuthService from "../../services/AuthService"
 import ServerException from "../exceptions/ServerException"
 import NotFoundException from "../exceptions/NotFoundException"
 import ValidationException from "../exceptions/ValidationException"
-import UserTransformer from "../users/UserTransformer"
+import UserTransformer from "../users/admin/Transformer"
 
 
 class AuthController {

@@ -5,4 +5,4 @@ import NotFoundHandler from "./NotFoundHandler";
 export default function (app: Application) {
   ExceptionHandler(app)
   NotFoundHandler(app)
-}
+} 
