@@ -6,9 +6,9 @@ export const sign = (data: any) => {
   return jwt.sign(data, process.env.APP_SECRET as string)
 }
 
-export const verify = (token: string) => {
+export const verify = (token: string): jwt.JwtPayload | false => {
   try {
-    return jwt.verify(token, process.env.APP_SECRET as string)
+    return jwt.verify(token, process.env.APP_SECRET as string) as jwt.JwtPayload
   } catch (error) {
     return false
   }
