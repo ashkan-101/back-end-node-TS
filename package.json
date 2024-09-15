@@ -8,9 +8,11 @@
     "@types/jsonwebtoken": "^9.0.6",
     "@types/mongoose": "^5.11.97",
     "@types/uuid": "^10.0.0",
+    "@types/zarinpal-checkout": "^0.2.4",
     "concurrently": "^8.2.2",
     "nodemon": "^3.1.4",
-    "typescript": "^5.5.4"
+    "typescript": "^5.5.4",
+    "zarinpal-checkout": "^0.2.8"
   },
   "name": "shop-project-ts",
   "version": "1.0.0",
