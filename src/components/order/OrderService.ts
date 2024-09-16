@@ -27,4 +27,9 @@ export default class OrderService {
     }
     return true
   }
+
+  public async addOrder(orderData: any): Promise<any>{
+
+  }
+
 }
