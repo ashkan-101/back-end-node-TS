@@ -1,7 +1,6 @@
-import ITransformer from "../contracts/ITransformer";
-import IOrder from "./model/IOrder";
-import DateService from "../../services/DateService";
-import ICoupon from "../coupon/model/ICoupen";
+import ITransformer from "../../contracts/ITransformer";
+import IOrder from "../model/IOrder";
+import DateService from "../../../services/DateService";
 
 export default class OrderTransformer implements ITransformer<IOrder> {
   private readonly dateService: DateService

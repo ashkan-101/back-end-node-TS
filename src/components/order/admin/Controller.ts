@@ -1,11 +1,11 @@
 import { Request, Response, NextFunction } from "express";
-import IOrderRepository from "./repositories/IOrderRepository";
-import OrderMongoRepository from "./repositories/OrderMongoRepository";
-import ServerException from "../exceptions/ServerException";
-import NotFoundException from "../exceptions/NotFoundException";
-import Order from "./model/Order";
-import OrderTransformer from "./OrderTransformer";
-import OrderService from "./OrderService";
+import IOrderRepository from "../repositories/IOrderRepository";
+import OrderMongoRepository from "../repositories/OrderMongoRepository";
+import ServerException from "../../exceptions/ServerException";
+import NotFoundException from "../../exceptions/NotFoundException";
+import Order from "../model/Order";
+import OrderTransformer from "./Transformer";
+import OrderService from "../OrderService";
 
 
 class OrdersController {
