@@ -15,8 +15,9 @@ import paymentsAdminRouter from '../components/payment/admin/Router'
 import paymentFrontRouter from '../components/payment/front/Router'
 
 import ordersAdminRouter from '../components/order/admin/Router'
-import ordersFrontRouter from '../components/order/front/Router'
+// import ordersFrontRouter from '../components/order/front/Router'
 
+import purchaseRouter from '../components/purchase/Router'
 
 import categoryRouter from '../components/category/CategoryRouter'
 import settingRouter from '../components/settings/SettingsRouter'
@@ -45,7 +46,9 @@ class RouteService{
         this.router.registerRouter('/api/v1/products', productsFrontRouter)
         this.router.registerRouter('/api/v1/coupons', couponFrontRouter)
         this.router.registerRouter('/api/v1/payments', paymentFrontRouter)
-        this.router.registerRouter('/api/v1/orders', ordersFrontRouter)
+        this.router.registerRouter('/api/v1/purchase', purchaseRouter)
+        
+        // this.router.registerRouter('/api/v1/orders', ordersFrontRouter)
         
         this.router.registerRouter('/api/v1/categories', categoryRouter)
         this.router.registerRouter('/api/v1/settings', settingRouter)

@@ -8,7 +8,7 @@ const paymentSchema: Schema = new Schema({
   amount: {type: Number, required: true},
   methos: {type: String, required: true},
   reserve: {type: String, required: true},
-  refrence: {type: String, required: true},
+  refrence: {type: String, default: null},
   createdAt: {type: Date, default: Date.now()},
   updatedAt: {type: Date, default: Date.now()},
   status: {type: Number, default: PaymentStatus.PENDING, enum: PaymentStatus, required: true},
