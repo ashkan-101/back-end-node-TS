@@ -1,7 +1,28 @@
 import IOrder from "../../components/order/model/IOrder";
+import IPaymentRepository from "../../components/payment/repositories/IPaymentRepository";
+import PaymentMongoRepository from "../../components/payment/repositories/PaymentMongoRepository";
+import { hashFromUUID } from "../HashService";
+import PaymentMethodFactory from "./PaymentMethodFactory";
 
 export default class PaymentService {
-  public async payOrder(order: IOrder, method: string){
+  private readonly paymentRepository: IPaymentRepository
+  private readonly paymentMethodFactory: PaymentMethodFactory
 
+  constructor(){
+    this.paymentRepository = new PaymentMongoRepository()
+    this.paymentMethodFactory = new PaymentMethodFactory()
+  }
+  
+  public async payOrder(order: IOrder, method: string){
+    const newPayment = await this.paymentRepository.create({
+      user: order.user,
+      order: order._id,
+      amount: order.finalPrice,
+      methos: method,
+      reserve: hashFromUUID(),
+    })
+
+    const paymentProvider = this.paymentMethodFactory.make('online')
+    paymentProvider.doPayment(order)
   }
 }
