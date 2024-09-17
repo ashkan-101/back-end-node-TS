@@ -4,6 +4,7 @@ import IOrderRepository from "../repositories/IOrderRepository";
 import OrderMongoRepository from "../repositories/OrderMongoRepository";
 import ServerException from "../../exceptions/ServerException";
 import NotFoundException from "../../exceptions/NotFoundException";
+import IAddOrderData from "../IAddOrderData";
 
 
 class OrdersController {
@@ -18,16 +19,23 @@ class OrdersController {
   }
 
   public async store(req: Request, res: Response, next: NextFunction){
+    console.log(req.body);
     try {
-      const orderData = {
-        userId: req.userId,
-        items: [req.body.basket],
+      const orderData: IAddOrderData = {
+        userId: req.userId as string, 
+        items: [...req.body.basket],
         coupon: req.body.coupon,
-        delivaryAddress: req.body.delivaryAddress,
-        paymentMethod: req.body.paymentMethod
+        deliveryAddress: req.body.deliveryAddress,
       }
 
-      const result = await this.orderService.addOrder(orderData)
+      const newOrder = await this.orderService.addOrder(orderData)
+      if(!newOrder){
+        throw new ServerException('درحال حاظر امکان ثبت سفارش وجود ندارد!')
+      }
+      res.status(201).send({
+        success: true,
+        newOrder
+      })
     } catch (error) {
       next(error)
     }

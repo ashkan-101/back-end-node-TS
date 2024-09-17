@@ -1,10 +1,10 @@
 export default interface IAddOrderData {
-  items: any[],
   userId: string,
+  items: any[],
   coupon: {
     code: string,
     percent: number
   },
   deliveryAddress: any
-  paymentMethod: string
+  paymentMethod?: string
 }

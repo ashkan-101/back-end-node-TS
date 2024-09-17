@@ -1,7 +1,7 @@
 import { Document } from "mongoose";
 
 export default interface IOrderLine extends Document {
-  product: object,
+  product: string,
   price: number,
   discountedPrice: number,
   count: number,
