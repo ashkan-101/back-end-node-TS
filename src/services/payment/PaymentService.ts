@@ -27,6 +27,7 @@ export default class PaymentService {
     if(paymentProvider instanceof OnlinePayment){
       paymentProvider.setGateway(method)
     }
-    paymentProvider.doPayment(order)
+    const result = paymentProvider.doPayment(order)
+    return result
   }
 }

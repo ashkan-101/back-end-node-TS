@@ -1,6 +1,7 @@
 import IOnlineGateway from "../contracts/IOnlineGateway";
 import ZarinpalCheckout from 'zarinpal-checkout'
 import { config } from "dotenv";
+import IPaymentRequest from "../contracts/IPaymentRequest";
 config()
 
 export default class ZarinPal implements IOnlineGateway{
@@ -11,14 +12,14 @@ export default class ZarinPal implements IOnlineGateway{
     this.zarinpal = ZarinpalCheckout.create(this.merchantId, this.sandbox)
   }
  
-  public async paymentRequest(): Promise<any> {
+  public async paymentRequest(request: IPaymentRequest): Promise<any> {
 
     const appUrl = process.env.APP_URL
 
     const requestResult = await this.zarinpal.PaymentRequest({
-      Amount: 1000, // In Tomans
+      Amount: request.amount, // In Tomans
       CallbackURL: `${appUrl}/payment/verify/zarinpal`,
-      Description: 'A Payment from Node.JS',
+      Description: request.description,
       // Email: 'hi@siamak.work',
       // Mobile: '09120000000'
     })
@@ -32,7 +33,6 @@ export default class ZarinPal implements IOnlineGateway{
     return {
       success: false
     }
-
   }
 
   public async paymentVerify(): Promise<any> {
@@ -52,5 +52,4 @@ export default class ZarinPal implements IOnlineGateway{
       success: false
     }
   }
-  
 }
