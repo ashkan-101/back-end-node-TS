@@ -2,6 +2,7 @@ import IOrder from "../../components/order/model/IOrder";
 import IPaymentRepository from "../../components/payment/repositories/IPaymentRepository";
 import PaymentMongoRepository from "../../components/payment/repositories/PaymentMongoRepository";
 import { hashFromUUID } from "../HashService";
+import OnlinePayment from "./methods/OnlinePayment";
 import PaymentMethodFactory from "./PaymentMethodFactory";
 
 export default class PaymentService {
@@ -23,6 +24,9 @@ export default class PaymentService {
     })
 
     const paymentProvider = this.paymentMethodFactory.make('online')
+    if(paymentProvider instanceof OnlinePayment){
+      paymentProvider.setGateway(method)
+    }
     paymentProvider.doPayment(order)
   }
 }

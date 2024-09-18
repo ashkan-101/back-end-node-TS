@@ -10,7 +10,7 @@ export default class OnlineGatewayFactory{
     this.onlineGateway.set('zainpal', new ZarinPal())
   }
 
-  public getOnlineGateway(gateway: string): IOnlineGateway{
+  public make(gateway: string): IOnlineGateway{
     if(!this.onlineGateway.has(gateway)){
       throw new NotFoundException('درگاه پرداخت مورد نظر یافت نشد')
     }

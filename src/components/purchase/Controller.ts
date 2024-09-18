@@ -18,7 +18,6 @@ class OrdersController {
   }
 
   public async purchaseOrder(req: Request, res: Response, next: NextFunction){
-    console.log(req.body);
     try {
       const orderData: IAddOrderData = {
         userId: req.userId as string, 
