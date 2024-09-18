@@ -2,6 +2,7 @@ import IOnlineGateway from "../contracts/IOnlineGateway";
 import ZarinpalCheckout from 'zarinpal-checkout'
 import { config } from "dotenv";
 import IPaymentRequest from "../contracts/IPaymentRequest";
+import IPaymentVerify from "../contracts/IPaymentVerify";
 config()
 
 export default class ZarinPal implements IOnlineGateway{
@@ -35,10 +36,10 @@ export default class ZarinPal implements IOnlineGateway{
     }
   }
 
-  public async paymentVerify(): Promise<any> {
+  public async paymentVerify(verify: IPaymentVerify): Promise<any> {
     const verifyResult = await this.zarinpal.PaymentVerification({
-      Amount: 1000, // In Tomans
-      Authority: '000000000000000000000000000000000000',
+      Amount: verify.amount, // In Tomans
+      Authority: verify.refId,
     })
 
     if(verifyResult && verifyResult.status === 100){
