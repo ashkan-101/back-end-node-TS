@@ -1,21 +1,15 @@
 import { Request, Response, NextFunction } from "express";
-import IProductRepository from "../repositories/IProductRepository";
-import ProductMongoRepository from "../repositories/ProductMongoRepository";
-import ProductTransformer from "./Transformer";
-import NotFoundException from "../../exceptions/NotFoundException";
 import { isValidObjectId } from "mongoose";
-import ICommentRepository from "../../comments/repositories/ICommentRepository";
-import CommentMongoRepository from "../../comments/repositories/CommentMongoRepository";
-import CommentTransformer from "../../comments/CommentTransformer";
+import ProductService from "../productService";
+import ServerException from "../../exceptions/ServerException";
+import NotFoundException from "../../exceptions/NotFoundException";
 
 
 class ProductController {
-  private readonly productsRepository: IProductRepository;
-  private readonly productsTransformer: ProductTransformer;
+  private readonly productService: ProductService
 
-  constructor() {
-    this.productsRepository = new ProductMongoRepository();
-    this.productsTransformer = new ProductTransformer();
+  constructor(productService: ProductService){
+    this.productService = productService
 
     this.list = this.list.bind(this);
     this.productDetails = this.productDetails.bind(this)
@@ -24,58 +18,54 @@ class ProductController {
 
   public async list(req: Request, res: Response, next: NextFunction) {
     try {
-      const page = req.query.page || 1
-      const itemsPerPage = 10
-      const offset = (page as number - 1) * itemsPerPage
+      const page = req.query.page ? +req.query.page : 1
 
-      const allProducts = await this.productsRepository.findMany({},['category'],{itemsPerPage, offset});
-      res.send(this.productsTransformer.collection(allProducts));
-
+      const allProducts = await this.productService.productsList(page)
+      if(!allProducts){
+        throw new ServerException('دریافت محصولات با مشکل مواجه شد!')
+      }
+      res.status(200).send({
+        success: true,
+        allProducts
+      })
     } catch (error) {
       next(error);
     }
   }
 
   public async productDetails(req: Request, res: Response, next: NextFunction) {
+    const productId = req.params.id
+    if(!isValidObjectId(productId)){
+      throw new NotFoundException('product not found')
+    }
     try {
-      const productId = req.params.id
-      if(!isValidObjectId(productId)){
-        throw new NotFoundException('product not found')
-      }
-      
-      const product = await this.productsRepository.findOne(productId, ['category'])
-
+      const product = await this.productService.productDetails(productId)
       if(!product){
-        throw new NotFoundException('product not found')
+        throw new NotFoundException('محصول موردنظر یافت نشد!')
       }
-
-      const productTransform = this.productsTransformer.transform(product)
-      res.status(200).send(productTransform)
-
+      res.status(200).send({
+        success: true,
+        product
+      })
     } catch (error) {
       next(error);
     }
   }
 
   public async comments(req: Request, res: Response, next: NextFunction) {
+    const productId = req.params.id
+    if(!isValidObjectId(productId)){
+      throw new NotFoundException('product not found')
+    }
     try {
-      const commentTransformer = new CommentTransformer()
-      const commentsRepository: ICommentRepository = new CommentMongoRepository()
-
-      const productId = req.params.id
-      if(!isValidObjectId(productId)){
-        throw new NotFoundException('product not found')
-      }
-      
-      const commentsProduct = await commentsRepository.findByProduct(productId, ['user', 'product'])
-
+      const commentsProduct = await this.productService.productComments(productId)
       if(!commentsProduct){
-        throw new NotFoundException('product not found')
+        throw new ServerException('دریافت کامنت ها با مشکل مواجه شد!')
       }
-
-      const transformComment = commentTransformer.collection(commentsProduct)
-      res.status(200).send(transformComment)
-
+      res.status(200).send({
+        success: true,
+        commentsProduct
+      })
     } catch (error) {
       next(error);
     }
