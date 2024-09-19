@@ -7,6 +7,6 @@ export default interface IPaymentRequest {
     email?: string,
     mobile?: string
   }
-  reserve?: string
+  reserve: string
   description: string
 }

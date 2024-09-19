@@ -1,4 +1,4 @@
-import IOrder from "../../../components/order/model/IOrder";
+import IPayment from "../../../components/payment/model/IPayment";
 import IPaymentMethod from "../contracts/IPaymentMethod";
 import IPaymentRequest from "../contracts/IPaymentRequest";
 import OnlineGatewayFactory from "../OnlineGatewayFactory";
@@ -13,12 +13,13 @@ export default class OnlinePayment implements IPaymentMethod {
 
   }
   
-  public async doPayment(order: IOrder): Promise<any> {
+  public async doPayment(payment: IPayment): Promise<any> {
     const onlineGateway = this.onlineGatewayFactory.make(this.gateway)
 
     const paymentRequest: IPaymentRequest = {
-      amount: order.finalPrice,
-      description: `بابت پرداخل آنلاین سفارش ${order._id}`
+      amount: payment.amount,
+      description: `بابت پرداخل آنلاین سفارش ${payment.order}`,
+      reserve: payment.reserve
     }
     const result = await onlineGateway.paymentRequest(paymentRequest)
     return result

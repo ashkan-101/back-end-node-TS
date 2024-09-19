@@ -39,6 +39,14 @@ class OrdersController {
       next(error)
     }
   }
+
+  public async verifyPayment(req: Request, res: Response, next: NextFunction): Promise<void>{
+    try {
+      
+    } catch (error) { 
+      next(error)
+    }
+  }
 }
 
 export default OrdersController

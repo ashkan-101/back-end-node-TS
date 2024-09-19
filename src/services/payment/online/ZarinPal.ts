@@ -18,14 +18,13 @@ export default class ZarinPal implements IOnlineGateway{
 
     const requestResult = await this.zarinpal.PaymentRequest({
       Amount: request.amount, // In Tomans
-      CallbackURL: `${appUrl}/payment/verify/zarinpal`,
+      CallbackURL: `${appUrl}/payment/verify/${request.reserve}`,
       Description: request.description,
       // Email: 'hi@siamak.work',
       // Mobile: '09120000000'
     })
+    console.log({request});
     console.log({requestResult});
-    
-
     if(requestResult && requestResult.status === 100){
       return {
         success: true,

@@ -7,5 +7,6 @@ const Controller= new OrdersController()
 
 ordersRouter.use(auth)
 ordersRouter.post('/', Controller.purchaseOrder)
+ordersRouter.post('/verification', Controller.verifyPayment)
 
 export default ordersRouter

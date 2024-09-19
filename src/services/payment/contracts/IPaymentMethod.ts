@@ -1,5 +1,5 @@
-import IOrder from "../../../components/order/model/IOrder";
+import IPayment from "../../../components/payment/model/IPayment";
 
 export default interface IPaymentMethod {
-  doPayment(order: IOrder): Promise<any>
+  doPayment(payment: IPayment): Promise<any>
 }
