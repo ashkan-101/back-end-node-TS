@@ -32,7 +32,6 @@ class OrdersController {
       }
 
       const paymentResult = await this.paymentService.payOrder(newOrder as IOrder, req.body.paymentMethod)
-
       res.status(201).send({
         success: true,
       })

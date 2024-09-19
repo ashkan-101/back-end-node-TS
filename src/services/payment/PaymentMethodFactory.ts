@@ -14,7 +14,7 @@ export default class PaymentMethodFactory {
   }
 
   public make(method: string): IPaymentMethod{
-    if(this.methods.has(method)){
+    if(!this.methods.has(method)){
       throw new NotFoundException('روش پرداخت مورد نظر یافت نشد!')
     }
       return this.methods.get(method) as IPaymentMethod

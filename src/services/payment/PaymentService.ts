@@ -22,12 +22,12 @@ export default class PaymentService {
       methos: method,
       reserve: hashFromUUID(),
     })
-
+    
     const paymentProvider = this.paymentMethodFactory.make('online')
     if(paymentProvider instanceof OnlinePayment){
       paymentProvider.setGateway(method)
     }
-    const result = paymentProvider.doPayment(order)
+    const result = await paymentProvider.doPayment(order)
     return result
   }
 }

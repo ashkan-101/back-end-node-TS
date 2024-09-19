@@ -10,11 +10,10 @@ export default class ZarinPal implements IOnlineGateway{
   private readonly merchantId = process.env.ZARINPAL_MERCHANTID as string
   private readonly sandbox = process.env.ZARINPAL_SANDBOX as unknown as boolean
   constructor(){
-    this.zarinpal = ZarinpalCheckout.create(this.merchantId, this.sandbox)
+    this.zarinpal = ZarinpalCheckout.create(this.merchantId as string, true)
   }
  
   public async paymentRequest(request: IPaymentRequest): Promise<any> {
-
     const appUrl = process.env.APP_URL
 
     const requestResult = await this.zarinpal.PaymentRequest({
@@ -24,6 +23,8 @@ export default class ZarinPal implements IOnlineGateway{
       // Email: 'hi@siamak.work',
       // Mobile: '09120000000'
     })
+    console.log({requestResult});
+    
 
     if(requestResult && requestResult.status === 100){
       return {

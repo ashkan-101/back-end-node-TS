@@ -7,7 +7,7 @@ export default class OnlineGatewayFactory{
   private onlineGateway: Map<string, IOnlineGateway> = new Map<string, IOnlineGateway>()
   
   constructor(){
-    this.onlineGateway.set('zainpal', new ZarinPal())
+    this.onlineGateway.set('zarinpal', new ZarinPal())
   }
 
   public make(gateway: string): IOnlineGateway{
@@ -15,6 +15,6 @@ export default class OnlineGatewayFactory{
       throw new NotFoundException('درگاه پرداخت مورد نظر یافت نشد')
     }
     return this.onlineGateway.get(gateway) as IOnlineGateway
-  }
 
+  }
 }

@@ -15,11 +15,12 @@ export default class OnlinePayment implements IPaymentMethod {
   
   public async doPayment(order: IOrder): Promise<any> {
     const onlineGateway = this.onlineGatewayFactory.make(this.gateway)
+
     const paymentRequest: IPaymentRequest = {
       amount: order.finalPrice,
       description: `بابت پرداخل آنلاین سفارش ${order._id}`
     }
-    const result = onlineGateway.paymentRequest(paymentRequest)
+    const result = await onlineGateway.paymentRequest(paymentRequest)
     return result
   }
 
