@@ -42,14 +42,14 @@ export default class ZarinPal implements IOnlineGateway{
       Authority: verify.refId,
     })
 
-    if(verifyResult && verifyResult.status === 100){
+    if(verifyResult && verifyResult.status === -21){
       return {
-        success:true,
-        refId: verifyResult.RefID,
+        success: false
       }
     }
     return {
-      success: false
+      success:true,
+      refId: verifyResult.RefID,
     }
   }
 }

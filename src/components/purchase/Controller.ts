@@ -15,6 +15,7 @@ class OrdersController {
     this.paymentService = new PaymentService()
 
     this.purchaseOrder = this.purchaseOrder.bind(this)
+    this.verifyPayment = this.verifyPayment.bind(this)
   }
 
   public async purchaseOrder(req: Request, res: Response, next: NextFunction){
@@ -49,6 +50,7 @@ class OrdersController {
       }
 
       const paymentVerifyResult = await this.paymentService.verifyPayment(paymentData)
+      res.send(paymentVerifyResult)
     } catch (error) { 
       next(error)
     }
