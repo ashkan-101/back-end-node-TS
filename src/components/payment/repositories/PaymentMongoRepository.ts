@@ -40,15 +40,12 @@ export default class PaymentMongoRepository implements IPaymentRepository {
     return updatePayment.modifiedCount > 0
   }
 
-  public async updateMany(where: any, updateData: any): Promise<any> {
-    
-  }
+  public async updateMany(where: any, updateData: any): Promise<any> {}
+  public async deleteOne(where: any): Promise<any> {}
+  public async deleteMany(where: any): Promise<any> {}
 
-  public async deleteOne(where: any): Promise<any> {
-    
-  }
-
-  public async deleteMany(where: any): Promise<any> {
-    
+  public async findByReserve(reserve: string): Promise<IPayment | null> {
+    const payment = await PaymentModel.findOne({reserve: reserve})
+    return payment
   }
 }

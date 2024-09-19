@@ -1,3 +1,4 @@
+import NotFoundException from "../../components/exceptions/NotFoundException";
 import IOrder from "../../components/order/model/IOrder";
 import IPaymentRepository from "../../components/payment/repositories/IPaymentRepository";
 import PaymentMongoRepository from "../../components/payment/repositories/PaymentMongoRepository";
@@ -29,5 +30,20 @@ export default class PaymentService {
     }
     const result = await paymentProvider.doPayment(newPayment)
     return result
+  }
+
+  public async verifyPayment(paymentVerifyData: any): Promise<{success: boolean, refId?: string}>{
+    const payment = await this.paymentRepository.findByReserve(paymentVerifyData.reserve)
+    if(!payment){
+      throw new NotFoundException('هیچ پرداختی با این شناسه وجود ندارد')
+    }
+    const paymentProvider = this.paymentMethodFactory.make('online')
+    if(paymentProvider instanceof OnlinePayment){
+      paymentProvider.setGateway(payment.method)
+      return paymentProvider.verifyPayment({...paymentVerifyData, amount: payment.amount})
+    }
+    return {
+      success: false
+    } 
   }
 }

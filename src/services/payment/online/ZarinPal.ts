@@ -46,7 +46,6 @@ export default class ZarinPal implements IOnlineGateway{
       return {
         success:true,
         refId: verifyResult.RefID,
-        status: verifyResult.status
       }
     }
     return {

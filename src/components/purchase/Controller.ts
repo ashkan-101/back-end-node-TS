@@ -42,7 +42,13 @@ class OrdersController {
 
   public async verifyPayment(req: Request, res: Response, next: NextFunction): Promise<void>{
     try {
-      
+      const paymentData = {
+        authority: req.body.authority,
+        status: req.body.status,
+        reserve: req.body.reserve
+      }
+
+      const paymentVerifyResult = await this.paymentService.verifyPayment(paymentData)
     } catch (error) { 
       next(error)
     }
