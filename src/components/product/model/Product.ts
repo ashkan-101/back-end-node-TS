@@ -16,7 +16,13 @@ const productSchema: Schema = new Schema({
     priceVariations: {type: [Object]},
     created_at: {type: Date, default: Date.now()},
     updated_at: {type: Date, default: Date.now()},
-    stock: {type: Number, required: true},
+    stock: {type: Number, default: 0},
+
+    purchasedCount: {type: Number, default: 0},
+    commentsCount: {type: Number, default: 0},
+    totalScore: {type: Number, default: 0},
+    viewsCount: {type: Number, default: 0},
+
     status: {
         type: Number,
         enum: ProductStatus,

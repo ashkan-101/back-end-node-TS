@@ -17,9 +17,13 @@ export default class ProductMongoRepository implements IProductRepository {
     return await productQuery.exec()
   }
 
-  public async findMany(params: any, relations?: string[], pagination?: IPagination): Promise<IProduct[]> {
+  public async findMany(params: any, relations?: string[], pagination?: IPagination, sort?:any): Promise<IProduct[]> {
     const productQuery = ProductModel.find(params)
 
+    if(sort){
+      productQuery.sort(sort)
+    }
+    
     if(relations && relations.length > 0){
       relations.forEach((relation) => {
         productQuery.populate(relation)
