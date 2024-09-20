@@ -7,5 +7,6 @@ const Controller= new OrdersController()
 
 ordersRouter.use(auth)
 ordersRouter.post('/', Controller.store)
+ordersRouter.get('/', Controller.list)
 
 export default ordersRouter
