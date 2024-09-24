@@ -1,27 +1,20 @@
 import { Request, Response, NextFunction } from "express"
 import { sign, verify } from '../../services/TokenService'
-import IUser from "../users/model/IUser"
-import User from "../users/model/User"
-import AuthService from "../../services/AuthService"
+import AuthService from "./AuthService"
 import ServerException from "../exceptions/ServerException"
 import NotFoundException from "../exceptions/NotFoundException"
 import ValidationException from "../exceptions/ValidationException"
-import UserTransformer from "../users/admin/Transformer"
+
 
 
 class AuthController {
   private readonly authService: AuthService
 
-  constructor(){
-    this.authService = new AuthService()
-
-    this.authenticate = this.authenticate.bind(this)
-    this.register = this.register.bind(this)
-    this.check = this.check.bind(this)
+  constructor(authService: AuthService){
+    this.authService = authService
   }
 
   public async authenticate(req: Request, res: Response, next: NextFunction){
-    const userTransformer = new UserTransformer()
     try {
       const {email, password} = req.body
       const user = await this.authService.authenticate(email, password)
@@ -30,16 +23,11 @@ class AuthController {
         throw new NotFoundException('not found any user with this information...please enter valid Data')
       }
 
-      let id: string = ''
-      if(user instanceof User){
-        id = user.id
-      }
-
       res.status(200).send({
         success: true,
         message: 'success login',
-        user: userTransformer.transform(user as IUser),
-        token: sign({userId: id})
+        user: user,
+        token: sign({userId: user.id})
       })
     } catch (error) {
       next(error)

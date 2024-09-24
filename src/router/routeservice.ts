@@ -4,7 +4,7 @@ import authRouter from "../components/auth/AuthRouter";
 
 import homeRouter from "../components/home/Router";
 
-import usersAdminRouter from "../components/users/admin/router";
+import usersAdminRouter from "../components/users/admin/Router";
 import usersFrontRouter from "../components/users/front/Router";
 
 import productsAdminRouter from "../components/product/admin/Router";
