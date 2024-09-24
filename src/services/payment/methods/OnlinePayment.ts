@@ -11,7 +11,6 @@ export default class OnlinePayment implements IPaymentMethod {
 
   constructor(){
     this.onlineGatewayFactory = new OnlineGatewayFactory()
-
   }
   
   public async doPayment(payment: IPayment): Promise<any> {
