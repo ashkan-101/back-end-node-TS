@@ -1,15 +1,15 @@
 import { Request, Response, NextFunction } from "express";
 import { isValidObjectId } from "mongoose";
-import ProductService from "../productService";
+import ProductService from "./Service";
 import ServerException from "../../exceptions/ServerException";
 import NotFoundException from "../../exceptions/NotFoundException";
 
 
 class ProductController {
-  private readonly productService: ProductService
+  private readonly service: ProductService
 
-  constructor(productService: ProductService){
-    this.productService = productService
+  constructor(){
+    this.service = new ProductService()
 
     this.list = this.list.bind(this);
     this.productDetails = this.productDetails.bind(this)
@@ -20,7 +20,7 @@ class ProductController {
     try {
       const page = req.query.page ? +req.query.page : 1
 
-      const allProducts = await this.productService.productsList(page)
+      const allProducts = await this.service.productsList(page)
       if(!allProducts){
         throw new ServerException('دریافت محصولات با مشکل مواجه شد!')
       }
@@ -39,7 +39,7 @@ class ProductController {
       throw new NotFoundException('product not found')
     }
     try {
-      const product = await this.productService.productDetails(productId)
+      const product = await this.service.productDetails(productId)
       if(!product){
         throw new NotFoundException('محصول موردنظر یافت نشد!')
       }
@@ -58,7 +58,7 @@ class ProductController {
       throw new NotFoundException('product not found')
     }
     try {
-      const commentsProduct = await this.productService.productComments(productId)
+      const commentsProduct = await this.service.productComments(productId)
       if(!commentsProduct){
         throw new ServerException('دریافت کامنت ها با مشکل مواجه شد!')
       }
