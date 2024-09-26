@@ -4,8 +4,8 @@ import UsersController from './Controller';
 const controller = new UsersController()
 const usersRouter: Router = Router()
 
-usersRouter.get('/', controller.index)
-usersRouter.post('/', controller.createUser)
+usersRouter.get('/', controller.usersList.bind(controller))
+
 
 export default usersRouter
 
