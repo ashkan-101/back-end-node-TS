@@ -10,8 +10,8 @@ import ValidationException from "../exceptions/ValidationException"
 class AuthController {
   private readonly authService: AuthService
 
-  constructor(authService: AuthService){
-    this.authService = authService
+  constructor(){
+    this.authService = new AuthService()
   }
 
   public async authenticate(req: Request, res: Response, next: NextFunction){

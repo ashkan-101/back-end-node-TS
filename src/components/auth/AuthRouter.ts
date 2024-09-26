@@ -4,9 +4,7 @@ import AuthFactory from "./AuthFactory";
 import AuthService from "./AuthService";
 
 const authRouter: Router = Router()
-const authFactory = new AuthFactory()
-const authService = new AuthService(authFactory)
-const authController = new AuthController(authService)
+const authController = new AuthController()
 
 authRouter.post('/login', authController.authenticate.bind(authController))
 authRouter.post('/register', authController.register.bind(authController))

@@ -7,9 +7,18 @@ import IUser from "../users/model/IUser";
 
 
 export default class AuthFactory {
-  public userRepository(){
-    const userRepository: IUserRepository = new UserMongoRepository()
-    return userRepository
+  private readonly userRepository: IUserRepository
+
+  constructor(){
+    this.userRepository = new UserMongoRepository()
+  }
+  
+  public findUserByEmail(email: string){
+    return this.userRepository.findByEmail(email)
+  }
+
+  public createNewUser(firstName: string, lastName: string, email: string, password: string){
+    return this.userRepository.create({firstName, lastName, email, password})
   }
 
   public userTransformer(){

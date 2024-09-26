@@ -1,35 +1,36 @@
 import IFactory from "./contracts/IFactory";
 import ProductStatus from "../product/model/productStatus";
+import Factory from "./Factory";
 
 export default class HomeService {
-  private readonly factory: IFactory
+  private readonly factory: Factory
 
-  constructor(factory: IFactory){
-    this.factory = factory
+  constructor(){
+    this.factory = new Factory()
   }
 
   public async list(){
     try {
-      const newests = await this.factory.productRepository().findMany(
-        {status: ProductStatus.PUBLISHED},
+      const newests = await this.factory.findProductsByStatus(
+        ProductStatus.PUBLISHED,
         ['category'], 
         {itemsPerPage:3, offset:0},
         {createdAt: -1})
 
-      const bestSellers = await this.factory.productRepository().findMany(
-        {status: ProductStatus.PUBLISHED},
+      const bestSellers = await this.factory.findProductsByStatus(
+        ProductStatus.PUBLISHED,
         ['category'], 
         {itemsPerPage:3, offset:0},
         {purchasedCount: -1})
 
-      const mostViewed = await this.factory.productRepository().findMany(
-        {status: ProductStatus.PUBLISHED},
+      const mostViewed = await this.factory.findProductsByStatus(
+        ProductStatus.PUBLISHED,
         ['category'], 
         {itemsPerPage:3, offset:0},
         {createdAt: -1})
 
-      const populars = await this.factory.productRepository().findMany(
-        {status: ProductStatus.PUBLISHED},
+      const populars = await this.factory.findProductsByStatus(
+        ProductStatus.PUBLISHED,
         ['category'], 
         {itemsPerPage:3, offset:0},
         {totalScore: -1})

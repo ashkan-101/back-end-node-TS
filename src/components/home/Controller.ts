@@ -4,8 +4,8 @@ import HomeService from "./HomeService";
 class HomeController {
   private readonly homeService: HomeService
 
-  constructor(homeService: HomeService){
-    this.homeService = homeService
+  constructor(){
+    this.homeService = new HomeService()
   }
 
   public async list(req: Request, res: Response, next: NextFunction){
