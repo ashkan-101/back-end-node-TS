@@ -8,6 +8,9 @@ export default class UserMongoRepository implements IUserRepository {
 
   public async findOne(ID: string): Promise<IUser | null> {
     const user = await UserModel.findById(ID)
+    if(!user){
+      return null
+    }
     return user
   }
 

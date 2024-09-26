@@ -1,5 +1,5 @@
-import {Schema, model} from 'mongoose'
 import IUser from './IUser'
+import {Schema, model} from 'mongoose'
 import addressSchema from './Address'
 
 const userSchema = new Schema({

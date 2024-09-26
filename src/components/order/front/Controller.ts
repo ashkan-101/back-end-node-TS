@@ -27,7 +27,7 @@ class OrdersController {
   public async store(req: Request, res: Response, next: NextFunction): Promise<void>{
     try {
       const orderData: IAddOrderData = {
-        userId: req.userId as string, 
+        userId: req.user?._id as string, 
         items: [...req.body.basket],
         coupon: req.body.coupon,
         deliveryAddress: req.body.deliveryAddress,
@@ -48,7 +48,7 @@ class OrdersController {
 
   public async list(req: Request, res: Response, next: NextFunction): Promise<void> {
    try {
-    const userId = req.userId
+    const userId = req.user?._id
     const userOrders = await this.ordersRepository.findMany({user : userId})
 
     res.status(200).send({

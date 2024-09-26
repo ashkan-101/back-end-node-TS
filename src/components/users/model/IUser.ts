@@ -9,7 +9,7 @@ export default interface IUser extends Document {
   mobile: string;
   totalOrders: number;
   wallet: number;
-  addresses: object[]
+  addresses: IAddress[]
   createdAt: Date;
   
   constraints: any

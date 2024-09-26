@@ -25,7 +25,7 @@ class OrdersController {
   public async purchaseOrder(req: Request, res: Response, next: NextFunction){
     try {
       const orderData: IAddOrderData = {
-        userId: req.userId as string, 
+        userId: req.user?._id as string, 
         items: [...req.body.basket],
         coupon: req.body.coupon,
         deliveryAddress: req.body.deliveryAddress,

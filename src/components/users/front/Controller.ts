@@ -1,51 +1,30 @@
 import { Request, Response, NextFunction } from "express"
-import { verify } from "../../../services/TokenService"
-import IUserRepository from "../repositories/IUserRepository"
-import UserMongoRepository from "../repositories/UserMongoRepository"
-import Unathorized from "../../exceptions/Unauthorized"
 import ServerException from "../../exceptions/ServerException"
 import NotFoundException from "../../exceptions/NotFoundException"
+import Service from "./Service"
+import IAddress from "../model/IAddress"
 
 class UsersController {
-    private readonly userRepository: IUserRepository
+    private readonly service: Service
 
     constructor(){
-        this.userRepository = new UserMongoRepository()
-
-        this.saveAddress = this.saveAddress.bind(this)
+        this.service = new Service()
     }
 
     public async saveAddress(req: Request, res: Response, next: NextFunction){
         try {
-            const verifyToken = verify(req.headers.authorization as string)
-
-            if(!verifyToken){
-                throw new Unathorized('unathorized!')
+            const userId = req.user?._id as string
+            const oldAddresses = req.user?.addresses as IAddress[]
+            const newAddress: IAddress = req.body
+    
+            const updateAddress = await this.service.updateUserAddrress(oldAddresses, newAddress, userId)
+            if(!updateAddress){
+                throw new ServerException('fail to save new Address!')
             }
-            const user = await this.userRepository.findOne(verifyToken.userId)
-
-            if(!user){
-                throw new NotFoundException('user not found!')
-            }
-
-            let newAddresses = []
-            if(user?.addresses){
-                newAddresses = [...user.addresses, {...req.body}]
-            }else{
-                newAddresses = [{...req.body}]
-            }
-
-            const updateAddresses = await this.userRepository.updateOne({_id: user._id}, {addresses: newAddresses})
-
-            if(!updateAddresses){
-                throw new ServerException('proccess not successfully!')
-            }
-
             res.status(200).send({
                 success: true,
-                message: "saved new address!"
+                message: 'success save new Address'
             })
-
         } catch (error) {
             next(error)
         }
