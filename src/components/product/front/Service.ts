@@ -10,12 +10,12 @@ export default class ProductService {
     this.factory = new Factory()
   }
 
-  public async productsList(page: number): Promise<Array<Partial<IProduct>> | false>{
+  public async productsList(page: number = 1): Promise<Array<Partial<IProduct>> | false>{
       const itemsPerPage = 10
       const offset = (page as number - 1) * itemsPerPage
     try {
       const allProducts =  await this.factory.getProductsList({}, ['category'], {itemsPerPage, offset})
-      const productsTransform = this.factory.productTransformer().collection(allProducts)
+      const productsTransform = this.factory.transformCollection(allProducts)
       return productsTransform
     } catch (error) {
       return false
@@ -28,7 +28,7 @@ export default class ProductService {
       if(!product){
         return false
       }
-      const productTransform = this.factory.productTransformer().transform(product)
+      const productTransform = this.factory.transform(product)
       return productTransform
     } catch (error) {
       return false

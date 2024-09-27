@@ -4,7 +4,7 @@ import Controller from "./Controller";
 const controller = new Controller()
 const ProductsRouter: Router = Router()
 
-ProductsRouter.get('/', controller.list)
+ProductsRouter.get('/', controller.list.bind(controller))
 
 /**
  * @swagger
@@ -94,7 +94,7 @@ ProductsRouter.get('/', controller.list)
  *       500:
  *         description: Internal server error
  */
-ProductsRouter.post('/', controller.create)
+ProductsRouter.post('/', controller.create.bind(controller))
 
 
 

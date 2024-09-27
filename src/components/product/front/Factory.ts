@@ -11,10 +11,12 @@ import ProductTransformer from "./Transformer";
 export default class Factory{
   private readonly productRepository: IProductRepository
   private readonly commentRepository: ICommentRepository
+  private readonly productTransformer: ITransformer<IProduct>
 
   constructor(){
     this.productRepository = new ProductMongoRepository()
     this.commentRepository = new CommentMongoRepository()
+    this.productTransformer = new ProductTransformer()
   }
 
   public async getProductsList(params:any ,relation?: string[],pagination?: IPagination){
@@ -29,10 +31,14 @@ export default class Factory{
     return await this.commentRepository.findByProduct(productId, relations)
   }
 
-  public productTransformer(){
-    const productTransformer: ITransformer<IProduct> = new ProductTransformer()
-    return productTransformer
+  public transform(product: IProduct){
+    return this.productTransformer.transform(product)
   }
+
+  public transformCollection(products: IProduct[]){
+    return this.productTransformer.collection(products)
+  }
+
   public commentTransformer(){
     const commentTransformer = new CommentTransformer()
     return commentTransformer

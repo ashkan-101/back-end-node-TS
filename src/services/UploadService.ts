@@ -9,12 +9,18 @@ export default class UploadService {
   constructor(){}
 
   public async upload(file: UploadedFile): Promise<string>{
+    if(file === undefined){
+      return ''
+    }
     const fileNewName: string = this.generateNewName(file.name)
      await file.mv(path.join(ROOT_PATH, CONTENT_PATH , fileNewName))
      return fileNewName
   }
 
   public async uploadMany(files: UploadedFile[]): Promise<string[]>{
+    if(files === undefined){
+      return []
+    }
     const filesNewName: string[] = []
     for (let index = 0; index < files.length; index++) {
       const fileNewName = await this.upload(files[index]) 

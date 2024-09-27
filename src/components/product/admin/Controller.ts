@@ -1,32 +1,24 @@
 import { Request, Response, NextFunction } from "express";
 import { UploadedFile } from "express-fileupload";
-import IProductRepository from "../repositories/IProductRepository";
-import ProductMongoRepository from "../repositories/ProductMongoRepository";
-import UploadService from "../../../services/UploadService";
-import ProductTransformer from "./Transformer";
+import Service from "./Service";
+import ServerException from "../../exceptions/ServerException";
 
 class ProductController {
-  private readonly productsRepository: IProductRepository;
-  private uploadService: UploadService;
-  private productsTransformer: ProductTransformer;
+  private readonly service: Service
 
   constructor() {
-    this.productsRepository = new ProductMongoRepository();
-    this.uploadService = new UploadService();
-    this.productsTransformer = new ProductTransformer();
-
-    this.list = this.list.bind(this);
-    this.create = this.create.bind(this);
+    this.service = new Service()
   }
 
   public async list(req: Request, res: Response, next: NextFunction) {
     try {
-      const page = req.query.page || 1
-      const itemsPerPage = 10
-      const offset = (page as number - 1) * itemsPerPage
+      const page = req.query.page ? +req.query.page : 1
 
-      const allProducts = await this.productsRepository.findMany({}, [], {itemsPerPage, offset});
-      res.send(this.productsTransformer.collection(allProducts));
+      const allProducts = await this.service.productList(page)
+      if(!allProducts){
+        throw new ServerException('procces failed!')
+      }
+      res.status(200).send(allProducts);
     } catch (error) {
       next(error);
     }
@@ -38,40 +30,29 @@ class ProductController {
         title: req.body.title,
         price: req.body.price,
         disCountedPrice: req.body.disCountedPrice,
-        category: req.body.disCountedPrice,
+        category: req.body.category,
         attributes: req.body.attributes,
         variations: req.body.variations,
         priceVariations: req.body.priceVariations,
         stock: req.body.stock,
-        status: req.body.status,
       };
 
-      const newProduct = await this.productsRepository.create(newProductParams);
-
+      const newProduct = await this.service.saveNewProduct(newProductParams);
+      
+      if(!newProduct){
+        throw new ServerException('خطایی در ذخیره محصول در دیتابیس رخ داد ..لطفا بعدا امتحان کنید')
+      }
+      
       if (req.files) {
         const thumbnailFile: UploadedFile = req.files.thumbnail as UploadedFile;
-        const galleryFiles: UploadedFile[] = req.files
-          .gallery as UploadedFile[];
-
-        // const files = req.files as any as UploadedFile[]
-        // // console.log(files);
-
-        const thumbnailName: string = await this.uploadService.upload(
-          thumbnailFile
-        );
-        const galleryName: string[] = await this.uploadService.uploadMany(
-          galleryFiles
-        );
-
-        await this.productsRepository.updateOne(
-          { _id: newProduct._id },
-          {
-            thumbnail: thumbnailName,
-            gallery: galleryName,
-          }
-        );
+        const galleryFiles: UploadedFile[] = req.files.gallery as UploadedFile[];
+        const saveFiles = await this.service.saveFiles(newProduct._id as string, thumbnailFile, galleryFiles);
       }
-      res.status(201).send(newProduct);
+
+      res.status(201).send({
+        success: true,
+        newProduct
+      })
     } catch (error) {
       next(error);
     }
